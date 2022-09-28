@@ -1,12 +1,13 @@
 import { CHANGE_STATUS, FETCH_GET_DATA } from '../actions/actions';
-import { chatDefaultState } from '../defaultState';
 import { FETCH_SIGN_OUT_SUCCESS } from '../actions/actions';
+import { chatDefaultState } from '../defaultState';
+import { Action } from '../../types';
 
-const chatReducer = (state = chatDefaultState, action) => {
+const chatReducer = (state = chatDefaultState, action: Action) => {
     switch (action.type) {
         case CHANGE_STATUS: {
             return {
-                status: action.status,
+                status: action?.status,
                 dialogs: state.dialogs
             };
         }
@@ -14,7 +15,7 @@ const chatReducer = (state = chatDefaultState, action) => {
         case FETCH_GET_DATA: {
             return {
                 status: state.status,
-                dialogs: action.dialogs
+                dialogs: action?.dialogs
             };
         }
 

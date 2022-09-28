@@ -11,3 +11,13 @@ export type ChatState = {
     status: string
     dialogs: []
 }
+
+export type Action = {
+    type: string
+    error?: FirebaseError
+    status: string
+    dialogs?: []
+    email?: string
+    password?: string
+    oobCode?: string
+}

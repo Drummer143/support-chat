@@ -1,5 +1,7 @@
 import { FirebaseError } from 'firebase/app';
 
+import { Action } from '../../types';
+
 export const FETCH_LOGIN_EMAIL_REQUEST = 'FETCH_LOGIN_EMAIL_REQUEST';
 export const FETCH_LOGIN_GOOGLE_REQUEST = 'FETCH_LOGIN_GOOGLE_REQUEST';
 export const FETCH_SIGN_UP_REQUEST = 'FETCH_SIGN_UP_REQUEST';
@@ -16,12 +18,6 @@ export const FETCH_PASSWORD_UPDATE_REQUEST = 'FETCH_PASSWORD_UPDATE_REQUEST';
 export const FETCH_PASSWORD_UPDATE_SUCCESS = 'FETCH_PASSWORD_UPDATE_SUCCESS';
 
 export const RESET_ERROR = 'RESET_ERROR';
-
-type Action = {
-    email?: string
-    password?: string
-    oobCode?: string
-}
 
 export const signInEmailRequest = ({ email = '', password = '' }: Action) => ({
     type: FETCH_LOGIN_EMAIL_REQUEST,

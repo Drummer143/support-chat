@@ -1,4 +1,5 @@
 import { auth } from '../../firebase';
+import { Action } from '../../types';
 import { authDefaultState } from '../defaultState';
 import {
     UPDATE_PROFILE_SUCCESS,
@@ -19,7 +20,7 @@ import {
     UPDATE_NAME_REQUEST
 } from '../actions/actions';
 
-const AuthReducer = (state = authDefaultState, action) => {
+const AuthReducer = (state = authDefaultState, action: Action) => {
     switch (action.type) {
         case FETCH_SIGN_UP_REQUEST:
         case FETCH_LOGIN_GOOGLE_REQUEST:
@@ -39,7 +40,7 @@ const AuthReducer = (state = authDefaultState, action) => {
 
         case FETCH_AUTH_FAILURE:
             return {
-                error: action.error
+                error: action?.error
             };
 
         case FETCH_PASSWORD_UPDATE_SUCCESS:
