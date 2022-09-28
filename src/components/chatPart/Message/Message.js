@@ -1,6 +1,6 @@
 import Moment from 'react-moment';
 import { getDownloadURL, listAll, ref } from 'firebase/storage';
-import { storage } from './../../../firebase';
+import { storage } from '../../../firebase';
 
 import styles from './Message.module.css';
 import { useEffect, useState } from 'react';

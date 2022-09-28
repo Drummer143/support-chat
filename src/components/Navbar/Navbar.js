@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { faFloppyDisk, faHourglass } from '@fortawesome/free-regular-svg-icons';
 
-import { changeStatus } from './../../redux/actions/actions';
+import { changeStatus } from '../../redux/actions/actions';
 
 import styles from './Navbar.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';

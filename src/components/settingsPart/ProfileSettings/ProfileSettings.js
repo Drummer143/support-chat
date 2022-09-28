@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
 
 import styles from './ProfileSettings.module.css';
-import { emailSchema, passwordSchema, confirmPasswordSchema } from './../../../utils';
+import { emailSchema, passwordSchema, confirmPasswordSchema } from '../../../utils';
 import {
     updateNameRequest,
     updatePasswordRequest,
     updateEmailRequest
-} from './../../../redux/actions/actions';
+} from '../../../redux/actions/actions';
 import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
-import { auth } from './../../../firebase';
+import { auth } from '../../../firebase';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 

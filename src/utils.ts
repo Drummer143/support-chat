@@ -1,12 +1,15 @@
 import * as Yup from 'yup';
 import YupPassword from 'yup-password';
+import { FirebaseError } from 'firebase/app';
 
-export const handleAuthError = error => {
+export const handleAuthError = (error: FirebaseError) => {
     switch (error.code) {
         case 'auth/user-not-found':
             return 'ERROR: User with entered email was not found';
+
         case 'auth/wrong-password':
             return 'ERROR: Invalid password.';
+
         case 'auth/too-many-requests':
             return 'ERROR: Exceeded the number of login attempts. Check your email and password and try to login later.';
 

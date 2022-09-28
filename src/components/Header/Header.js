@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { signOutRequest } from './../../redux/actions/actions';
+import { signOutRequest } from '../../redux/actions/actions';
 
 import styles from './Header.module.css';
 import { useNavigate } from 'react-router-dom';
