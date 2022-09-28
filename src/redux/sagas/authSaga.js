@@ -39,7 +39,7 @@ const toastParams = {
     draggable: false,
     progress: undefined,
     theme: 'colored'
-}
+};
 
 function* workerSignInWithEmail(action) {
     try {
@@ -77,14 +77,16 @@ function* workerRecoverPassword(action) {
     try {
         yield call(sendPasswordResetEmail, auth, action.email);
         yield put(passwordResetSuccess());
-        yield toast.success('Check your email and follow the link we sent to restore your account password', toastParams);
+        yield toast.success(
+            'Check your email and follow the link we sent to restore your account password',
+            toastParams
+        );
     } catch (error) {
         yield put(authFailure(error));
     }
 }
 
 const toastUpdate = (status, target) => {
-
     if (status === 'success') {
         toast.success(`Your ${target} has been successfully changed`, toastParams);
     } else {

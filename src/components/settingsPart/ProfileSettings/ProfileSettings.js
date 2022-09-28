@@ -2,9 +2,13 @@ import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
 
-import styles from './ProfileSettings.module.css'
+import styles from './ProfileSettings.module.css';
 import { emailSchema, passwordSchema, confirmPasswordSchema } from './../../../utils';
-import { updateNameRequest, updatePasswordRequest, updateEmailRequest } from './../../../redux/actions/actions';
+import {
+    updateNameRequest,
+    updatePasswordRequest,
+    updateEmailRequest
+} from './../../../redux/actions/actions';
 import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import { auth } from './../../../firebase';
 import { useState } from 'react';
@@ -19,7 +23,7 @@ const toastParams = {
     draggable: false,
     progress: undefined,
     theme: 'colored'
-}
+};
 
 function ProfileSettings() {
     const dispatch = useDispatch();
@@ -34,7 +38,7 @@ function ProfileSettings() {
     const [updatingFunction, setUpdatingFunction] = useState({});
     const [password, setPassword] = useState('');
 
-    const reAuthentication = (e) => {
+    const reAuthentication = e => {
         e.preventDefault();
         const credential = EmailAuthProvider.credential(user.email, password);
         reauthenticateWithCredential(auth.currentUser, credential)
@@ -69,7 +73,8 @@ function ProfileSettings() {
                     setUpdatingFunction({ update: () => dispatch(updatePasswordRequest(value)) });
                     break;
 
-                default: alert('Something wrong with site. Contact technical support.');
+                default:
+                    alert('Something wrong with site. Contact technical support.');
             }
         } else {
             alert('empty');
@@ -91,25 +96,46 @@ function ProfileSettings() {
             >
                 {formik => (
                     <>
-                        <Form className={styles.form} onSubmit={e => handleSubmit(e, 'name', formik.values.name)}>
+                        <Form
+                            className={styles.form}
+                            onSubmit={e => handleSubmit(e, 'name', formik.values.name)}
+                        >
                             <h3>Update Name</h3>
-                            <Field type='text' name='name' />
-                            <p><ErrorMessage name='name' /></p>
+                            <Field type="text" name="name" />
+                            <p>
+                                <ErrorMessage name="name" />
+                            </p>
                         </Form>
 
-                        <Form className={styles.form} onSubmit={e => handleSubmit(e, 'email', formik.values.email)}>
+                        <Form
+                            className={styles.form}
+                            onSubmit={e => handleSubmit(e, 'email', formik.values.email)}
+                        >
                             <h3>Update Email</h3>
-                            <Field type='email' name='email' />
-                            <p><ErrorMessage name='email' /></p>
+                            <Field type="email" name="email" />
+                            <p>
+                                <ErrorMessage name="email" />
+                            </p>
                         </Form>
 
-                        <Form className={styles.form} onKeyDown={e => e.keyCode === 13 ? handleSubmit(e, 'password', formik.values.password) : null}>
+                        <Form
+                            className={styles.form}
+                            onKeyDown={e =>
+                                e.keyCode === 13
+                                    ? handleSubmit(e, 'password', formik.values.password)
+                                    : null
+                            }
+                        >
                             <h3>Update Password</h3>
-                            <Field type='password' name='password' />
-                            <p><ErrorMessage name='password' /></p>
+                            <Field type="password" name="password" />
+                            <p>
+                                <ErrorMessage name="password" />
+                            </p>
 
-                            <Field type='password' name='confirmPassword' />
-                            <p><ErrorMessage name='confirmPassword' /></p>
+                            <Field type="password" name="confirmPassword" />
+                            <p>
+                                <ErrorMessage name="confirmPassword" />
+                            </p>
                         </Form>
                     </>
                 )}
@@ -118,11 +144,17 @@ function ProfileSettings() {
             <div className={styles.reAuthForm} style={{ display: reAuthFormDisplay }}>
                 <form onSubmit={e => reAuthentication(e)}>
                     <h3>Type your password to confirm changes</h3>
-                    <input type='password' value={password} onChange={e => setPassword(e.target.value)} />
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
 
                     <div className={styles.buttons}>
-                        <button type='button' onClick={() => setReAuthFormDisplay('none')}>Cancel</button>
-                        <button type='submit'>Submit</button>
+                        <button type="button" onClick={() => setReAuthFormDisplay('none')}>
+                            Cancel
+                        </button>
+                        <button type="submit">Submit</button>
                     </div>
                 </form>
             </div>

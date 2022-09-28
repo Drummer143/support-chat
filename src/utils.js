@@ -43,8 +43,7 @@ export const confirmPasswordValSchema = Yup.string()
 
 // schemas for settings
 
-export const emailSchema = Yup.string()
-    .email('Invalid address. Example: suppurt-chat@example.com');
+export const emailSchema = Yup.string().email('Invalid address. Example: suppurt-chat@example.com');
 
 export const passwordSchema = Yup.string()
     .min(8, 'Must be 8 characters or more')
@@ -54,5 +53,7 @@ export const passwordSchema = Yup.string()
     .minNumbers(1, 'Your password must contain at least one number')
     .oneOf([Yup.ref('confirmPassword')], 'Passwords does not match');
 
-export const confirmPasswordSchema = Yup.string()
-    .oneOf([Yup.ref('password')], 'Passwords does not match');
+export const confirmPasswordSchema = Yup.string().oneOf(
+    [Yup.ref('password')],
+    'Passwords does not match'
+);

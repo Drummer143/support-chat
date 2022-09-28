@@ -18,10 +18,29 @@ const Snippet = ({ text, deleteSnippet, handleSaveEditedSnippet: handleSave }) =
 
     return (
         <div className={styles.cell}>
-            <textarea type='text' value={input} onChange={e => setInput(e.target.value)} disabled={text ? isDisabled : true} className={styles.textarea} />
+            <textarea
+                type="text"
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                disabled={text ? isDisabled : true}
+                className={styles.textarea}
+            />
             <div>
-                <button onClick={() => handleSave(text, input, setDisabled)} className={`${styles.button} ${styles.greenButton}`}>{isDisabled ? 'Edit' : 'Save'}</button>
-                {!isDisabled || <button type='button' onClick={() => deleteSnippet(text)} className={`${styles.button} ${styles.redButton}`}>Delete</button>}
+                <button
+                    onClick={() => handleSave(text, input, setDisabled)}
+                    className={`${styles.button} ${styles.greenButton}`}
+                >
+                    {isDisabled ? 'Edit' : 'Save'}
+                </button>
+                {!isDisabled || (
+                    <button
+                        type="button"
+                        onClick={() => deleteSnippet(text)}
+                        className={`${styles.button} ${styles.redButton}`}
+                    >
+                        Delete
+                    </button>
+                )}
             </div>
         </div>
     );
@@ -33,20 +52,20 @@ function Snippets() {
     const [newSnippetText, setNewSnippetText] = useState('');
 
     const deleteSnippet = text => {
-        setSnippets(prev => prev.filter((item => item !== text)));
+        setSnippets(prev => prev.filter(item => item !== text));
     };
 
     const handleClick = () => {
         if (inputDisplaying === 'none') {
             setInputDisplaying('initial');
         } else {
-            setInputDisplaying('none');
             if (newSnippetText && !snippets.includes(newSnippetText)) {
                 let s = snippets.slice();
                 s.push(newSnippetText);
                 setSnippets(s);
-                setNewSnippetText('');
             }
+            setNewSnippetText('');
+            setInputDisplaying('none');
         }
     };
 
@@ -66,14 +85,41 @@ function Snippets() {
             <h2>Snippets</h2>
             <div>
                 <div className={styles.list}>
-                    {snippets && snippets.map((snippet, i) => <Snippet text={snippet} key={snippet} deleteSnippet={deleteSnippet} handleSaveEditedSnippet={handleSaveEditedSnippet} />)}
+                    {snippets &&
+                        snippets.map((snippet, i) => (
+                            <Snippet
+                                text={snippet}
+                                key={snippet}
+                                deleteSnippet={deleteSnippet}
+                                handleSaveEditedSnippet={handleSaveEditedSnippet}
+                            />
+                        ))}
                 </div>
 
                 <div className={styles.addNewSnippet}>
-                    <textarea type='text' style={{ display: inputDisplaying, resize: 'none' }} value={newSnippetText} onChange={e => setNewSnippetText(e.target.value)} className={styles.textarea} />
+                    <textarea
+                        type="text"
+                        style={{ display: inputDisplaying, resize: 'none' }}
+                        value={newSnippetText}
+                        onChange={e => setNewSnippetText(e.target.value)}
+                        className={styles.textarea}
+                    />
                     <div>
-                        <button type='button' onClick={handleClick} className={`${styles.button} ${styles.greenButton}`}>{inputDisplaying === 'none' ? 'Add' : 'Save'} snippet</button>
-                        <button type='button' style={{ display: inputDisplaying }} onClick={() => setInputDisplaying('none')} className={`${styles.button} ${styles.redButton}`}>Cancel</button>
+                        <button
+                            type="button"
+                            onClick={handleClick}
+                            className={`${styles.button} ${styles.greenButton}`}
+                        >
+                            {inputDisplaying === 'none' ? 'Add' : 'Save'} snippet
+                        </button>
+                        <button
+                            type="button"
+                            style={{ display: inputDisplaying }}
+                            onClick={() => setInputDisplaying('none')}
+                            className={`${styles.button} ${styles.redButton}`}
+                        >
+                            Cancel
+                        </button>
                     </div>
                 </div>
             </div>

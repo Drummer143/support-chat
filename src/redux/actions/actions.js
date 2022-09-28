@@ -53,8 +53,6 @@ export const resetError = () => ({
     type: RESET_ERROR
 });
 
-
-
 export const CHANGE_STATUS = 'CHANGE_STATUS';
 
 export const FETCH_GET_DATA = 'FETCH_GET_DATA';
@@ -70,26 +68,24 @@ export const getDataSuccess = (dialogs, status) => ({
     dialogs
 });
 
-
-
 export const UPDATE_NAME_REQUEST = 'UPDATE_NAME_REQUEST';
 export const UPDATE_EMAIL_REQUEST = 'UPDATE_EMAIL_REQUEST';
 export const UPDATE_PASSWORD_REQUEST = 'UPDATE_PASSWORD_REQUEST';
 export const UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS';
 
-export const updateNameRequest = (name) => ({
+export const updateNameRequest = name => ({
     type: UPDATE_NAME_REQUEST,
     name
 });
-export const updatePasswordRequest = (password) => ({
+export const updatePasswordRequest = password => ({
     type: UPDATE_PASSWORD_REQUEST,
     password
 });
-export const updateEmailRequest = (email) => ({
+export const updateEmailRequest = email => ({
     type: UPDATE_EMAIL_REQUEST,
     email
 });
-export const updateProfileSuccess = (user) => ({
+export const updateProfileSuccess = user => ({
     type: UPDATE_PROFILE_SUCCESS,
     user
 });

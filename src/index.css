@@ -15,7 +15,9 @@ p {
     margin: 0;
 }
 
-textarea, button, input {
+textarea,
+button,
+input {
     border: none;
     outline: none;
 }

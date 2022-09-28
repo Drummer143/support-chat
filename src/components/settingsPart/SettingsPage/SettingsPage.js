@@ -5,7 +5,6 @@ import ProfileSettings from './../ProfileSettings/ProfileSettings';
 import styles from './SettingsPage.module.css';
 
 function SettingsPage() {
-
     return (
         <div className={styles.wrapper}>
             <header>
