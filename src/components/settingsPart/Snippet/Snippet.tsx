@@ -3,10 +3,10 @@ import React, { useState, useRef } from 'react';
 import styles from './Snippet.module.css';
 
 type Props = {
-    text: string
-    handleDelete: any
-    handleSave: any
-}
+    text: string;
+    handleDelete: any;
+    handleSave: any;
+};
 
 const Snippet = ({ text, handleDelete, handleSave }: Props) => {
     const [isDisabled, setDisabled] = useState(true);
@@ -19,7 +19,9 @@ const Snippet = ({ text, handleDelete, handleSave }: Props) => {
                 onChange={e => setInput(e.target.value)}
                 disabled={text ? isDisabled : true}
                 className={styles.textarea}
-                onFocus={(e: React.FocusEvent<HTMLTextAreaElement>) => e.target.selectionStart = e.target.value.length}
+                onFocus={(e: React.FocusEvent<HTMLTextAreaElement>) =>
+                    (e.target.selectionStart = e.target.value.length)
+                }
             />
             <div>
                 <button

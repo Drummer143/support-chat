@@ -41,7 +41,7 @@ function UpdatePassword() {
                         password: values.password,
                         oobCode
                     })
-                )
+                );
             }}
         >
             <Form className="wrapper">

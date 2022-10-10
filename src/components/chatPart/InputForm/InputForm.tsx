@@ -10,12 +10,12 @@ import { database, storage } from '../../../firebase';
 import styles from './InputForm.module.css';
 
 type Props = {
-    input: string
+    input: string;
     setInput: (value: string) => void;
-    id: string
-    dialogId: number
-    status: DialogStatus
-}
+    id: string;
+    dialogId: number;
+    status: DialogStatus;
+};
 
 function InputForm({ input, setInput, id, dialogId, status }: Props) {
     const [localInput, setLocalInput] = useState(input);
@@ -38,7 +38,7 @@ function InputForm({ input, setInput, id, dialogId, status }: Props) {
                         image: url,
                         writtenBy: 'client'
                     };
-                    let updates: DynamicObject = {};       // TODO: ADD TYPES
+                    let updates: DynamicObject = {}; // TODO: ADD TYPES
                     updates[`/dialogs/${dialogId}/messages/${id}/`] = message;
                     update(dbRef, updates);
                 });
@@ -54,7 +54,7 @@ function InputForm({ input, setInput, id, dialogId, status }: Props) {
             timestamp: date.getTime(),
             writtenBy: 'client'
         };
-        let updates: DynamicObject = {};       // TODO: ADD TYPE
+        let updates: DynamicObject = {}; // TODO: ADD TYPE
         updates[`/dialogs/${dialogId}/messages/${id}`] = message;
         update(dbRef, updates);
     };

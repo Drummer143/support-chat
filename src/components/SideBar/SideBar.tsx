@@ -39,7 +39,16 @@ function SideBar() {
 
     return (
         <nav>
-            {cells.map(({ status, icon }) => <SideBarButton key={status} status={status} currentStatus={currentStatus} icon={icon} text={status.replace(status[0], status[0].toLowerCase())} handleClick={handleClick} />)}
+            {cells.map(({ status, icon }) => (
+                <SideBarButton
+                    key={status}
+                    status={status}
+                    currentStatus={currentStatus}
+                    icon={icon}
+                    text={status.replace(status[0], status[0].toLowerCase())}
+                    handleClick={handleClick}
+                />
+            ))}
         </nav>
     );
 }

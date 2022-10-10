@@ -12,18 +12,22 @@ import styles from './Chat.module.css';
 import { AppState } from '../../../types/types';
 
 type URLParams = {
-    id: string
-}
+    id: string;
+};
 
 function Chat() {
     const params = useParams<URLParams>();
-    const dialog: DataDialog | undefined = useSelector((state: AppState) => state.chatReducer.dialogs.find(dialog => dialog.dialogId === Number(params.id)));
+    const dialog: DataDialog | undefined = useSelector((state: AppState) =>
+        state.chatReducer.dialogs.find(dialog => dialog.dialogId === Number(params.id))
+    );
     const [rating] = useState(dialog?.status === 'completed' ? dialog?.rating : null);
     const [input, setInput] = useState('');
 
     const addSnippet = (snippet: string) => setInput(input + snippet);
 
-    const messages = dialog?.messages.map((message, i) => <Message key={`${i}${message}`} message={message} />);
+    const messages = dialog?.messages.map((message, i) => (
+        <Message key={`${i}${message}`} message={message} />
+    ));
 
     useEffect(() => {
         const block: HTMLElement | null = document.getElementById('chat');

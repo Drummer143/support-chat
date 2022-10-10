@@ -59,7 +59,9 @@ const useButtons = ({ dialogId, status, saved, rating }: DataDialog) => {
         }
         case 'completed': {
             return {
-                first: <div className={`${styles.button} ${styles.rating}`}>{ratingComponents}</div>,
+                first: (
+                    <div className={`${styles.button} ${styles.rating}`}>{ratingComponents}</div>
+                ),
                 second: saved ? buttons.deleteFromSaved : buttons.save
             };
         }

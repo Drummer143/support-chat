@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './SideBarButton.module.css';
 
 type Props = {
-    status: string
-    currentStatus: string
-    icon: any
-    text: string
-    handleClick: (status: string) => void
-}
+    status: string;
+    currentStatus: string;
+    icon: any;
+    text: string;
+    handleClick: (status: string) => void;
+};
 
 const SideBarButton = ({ status, currentStatus, icon, text, handleClick }: Props) => {
     let style = styles.cell;

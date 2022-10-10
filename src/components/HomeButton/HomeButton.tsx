@@ -7,9 +7,9 @@ import { ReactComponent as ArrowLeft } from '../../assets/ArrowLeft.svg';
 import styles from './HomeButton.module.css';
 
 type Props = {
-    width?: number | null
-    height?: number | null
-}
+    width?: number | null;
+    height?: number | null;
+};
 
 function HomeButton({ width = null, height = null }: Props) {
     const navigate = useNavigate();

@@ -2,19 +2,24 @@ import { faPaperclip } from '@fortawesome/fontawesome-free-solid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useRef } from 'react';
 
-import {  ReactComponent as PaperClip } from '../../assets/PaperClip.svg';
+import { ReactComponent as PaperClip } from '../../assets/PaperClip.svg';
 
 import styles from './InputFileButton.module.css';
 
 type Props = {
-    isDisabled: boolean
-    setImageInput: Function
+    isDisabled: boolean;
+    setImageInput: Function;
 
-    text?: string
-    buttonShape?: string
-}
+    text?: string;
+    buttonShape?: string;
+};
 
-function InputFileButton({ setImageInput, isDisabled = false, text = '', buttonShape = 'circle' }: Props) {
+function InputFileButton({
+    setImageInput,
+    isDisabled = false,
+    text = '',
+    buttonShape = 'circle'
+}: Props) {
     const imageInput = useRef<HTMLInputElement>(null);
     const style = buttonShape === 'circle' ? 'circle' : 'button';
 
@@ -30,8 +35,7 @@ function InputFileButton({ setImageInput, isDisabled = false, text = '', buttonS
                         const a = e.target.files[0];
                         setImageInput(e.target.files[0]);
                     }
-                }
-                }
+                }}
                 accept="image/jpeg,image/png"
                 style={{ display: 'none' }}
             />
@@ -42,7 +46,11 @@ function InputFileButton({ setImageInput, isDisabled = false, text = '', buttonS
                 disabled={isDisabled}
                 className={styles[style]}
             >
-                {text || <PaperClip width='25' height='30' style={{ marginTop: '4px' }} /> /* <FontAwesomeIcon icon={faPaperclip} /> */}
+                {
+                    text || (
+                        <PaperClip width="25" height="30" style={{ marginTop: '4px' }} />
+                    ) /* <FontAwesomeIcon icon={faPaperclip} /> */
+                }
             </button>
         </div>
     );

@@ -1,9 +1,9 @@
 import styles from './SearchBar.module.css';
 
 type Props = {
-    input: string
-    setInput: (value: string) => void
-}
+    input: string;
+    setInput: (value: string) => void;
+};
 
 function SearchBar({ input, setInput }: Props) {
     return (

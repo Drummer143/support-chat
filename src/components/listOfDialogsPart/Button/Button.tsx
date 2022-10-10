@@ -7,12 +7,12 @@ import { DialogStatus, DynamicObject } from '../../../types/types';
 import styles from './Button.module.css';
 
 type Props = {
-    dialogId: number
-    path: string
-    newStatus: DialogStatus | boolean
-    text: string
-    buttonColor: string
-}
+    dialogId: number;
+    path: string;
+    newStatus: DialogStatus | boolean;
+    text: string;
+    buttonColor: string;
+};
 
 const Button = ({ text, dialogId, newStatus, path, buttonColor }: Props) => {
     const headDB = ref(database);

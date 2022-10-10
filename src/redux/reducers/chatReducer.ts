@@ -27,7 +27,7 @@ const chatReducer = (state = chatDefaultState, action: Action) => {
                     } else {
                         dialog.messages = dialog.messages.filter(message => message !== null);
                     }
-                })
+                });
             }
 
             return {

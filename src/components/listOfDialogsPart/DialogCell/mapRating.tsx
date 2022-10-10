@@ -7,7 +7,7 @@ const mapRating = (dialogRating: number | undefined): JSX.Element | JSX.Element[
     if (dialogRating && dialogRating !== -1) {
         let ratingArr: JSX.Element[] = [];
         for (let i = 0; i < 5; i++) {
-            const style = (dialogRating - 1 <= i) ? styles['greyStar'] : styles['goldStar'];
+            const style = dialogRating - 1 <= i ? styles['greyStar'] : styles['goldStar'];
             ratingArr.push(<Star className={style} />);
         }
         rating = ratingArr;

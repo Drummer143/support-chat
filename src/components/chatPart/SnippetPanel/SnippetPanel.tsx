@@ -1,8 +1,8 @@
 import styles from './SnippetPanel.module.css';
 
 type Props = {
-    addSnippet: (value: string) => void
-}
+    addSnippet: (value: string) => void;
+};
 
 function SnippetPanel({ addSnippet }: Props) {
     const snippets = [
@@ -18,7 +18,11 @@ function SnippetPanel({ addSnippet }: Props) {
         <div className={styles.snippets}>
             <h4>Your snippets</h4>
             {snippets.map(snippet => (
-                <button key={snippet} onClick={() => addSnippet(snippet)} className={styles.snippet}>
+                <button
+                    key={snippet}
+                    onClick={() => addSnippet(snippet)}
+                    className={styles.snippet}
+                >
                     {snippet}
                 </button>
             ))}

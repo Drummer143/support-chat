@@ -1,4 +1,4 @@
-import { AuthState, ChatState } from "../types/types";
+import { AuthState, ChatState } from '../types/types';
 
 export const authDefaultState: AuthState = {
     requesting: false,

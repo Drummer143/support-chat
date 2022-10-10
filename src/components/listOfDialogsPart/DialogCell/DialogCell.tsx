@@ -7,8 +7,8 @@ import { DataDialog } from '../../../types/firebaseDataTypes';
 import styles from './DialogCell.module.css';
 
 type Props = {
-    dialog: DataDialog
-}
+    dialog: DataDialog;
+};
 
 function DialogCell({ dialog }: Props) {
     const lastMessage = dialog.messages[dialog.messages.length - 1];
