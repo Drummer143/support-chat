@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './HomeButton.module.css';
 
-function HomeButton({ width, height }) {
+/* type Props = {
+    width?: number | null
+    height?: number | null
+} */
+
+function HomeButton({ width = null, height = null }/* : Props */) {
     const navigate = useNavigate();
 
     return (

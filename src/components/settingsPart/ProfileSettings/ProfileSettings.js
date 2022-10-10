@@ -44,7 +44,7 @@ function ProfileSettings() {
         reauthenticateWithCredential(auth.currentUser, credential)
             .then(() => setReAuthFormDisplay('none'))
             .then(() => updatingFunction.update())
-            .catch(error => alert(error));
+            .catch(error => console.log(error));
     };
 
     const handleSubmit = (e, field, value) => {

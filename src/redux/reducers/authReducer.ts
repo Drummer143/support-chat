@@ -51,6 +51,7 @@ const AuthReducer = (state = authDefaultState, action: Action) => {
 
         case FETCH_SIGN_OUT_SUCCESS:
             localStorage.clear();
+            return authDefaultState;
 
         case RESET_ERROR:
             return authDefaultState;

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Message from '../Message/Message';
 import InputForm from '../InputForm/InputForm';
 import mapRating from './../../listOfDialogsPart/DialogCell/mapRating';
-import HomeButton from './../../HomeButton/HomeButton';
+import HomeButton from '../../HomeButton/HomeButton';
 import SnippetPanel from '../SnippetPanel/SnippetPanel';
 
 import styles from './Chat.module.css';

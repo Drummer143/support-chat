@@ -1,11 +1,11 @@
 import { Provider } from 'react-redux';
-import { persistor } from '../../redux/store.ts';
+import { persistor } from '../../redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import store from '../../redux/store.ts';
+import store from '../../redux/store';
 import RoutingTree from '../RoutingTree/RoutingTree';
 
 import './App.css';

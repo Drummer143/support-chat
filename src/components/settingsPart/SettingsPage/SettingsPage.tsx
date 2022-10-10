@@ -1,6 +1,6 @@
-import Snippets from './../Snippets/Snippets';
+import Snippets from '../Snippets/Snippets';
 import HomeButton from '../../HomeButton/HomeButton';
-import ProfileSettings from './../ProfileSettings/ProfileSettings';
+import ProfileSettings from '../ProfileSettings/ProfileSettings';
 
 import styles from './SettingsPage.module.css';
 
