@@ -13,6 +13,23 @@ const chatReducer = (state = chatDefaultState, action: Action) => {
         }
 
         case FETCH_GET_DATA: {
+            const dialogs = action.dialogs;
+
+            if (dialogs) {
+                dialogs.forEach(dialog => {
+                    if (!Array.isArray(dialog.messages)) {
+                        const messages = dialog.messages;
+                        dialog.messages = [];
+                        const keys = Object.keys(messages);
+                        for (let i = 0; i < keys.length; i++) {
+                            dialog.messages.push(messages[keys[i]]);
+                        }
+                    } else {
+                        dialog.messages = dialog.messages.filter(message => message !== null);
+                    }
+                })
+            }
+
             return {
                 status: state.status,
                 dialogs: action?.dialogs
