@@ -5,7 +5,7 @@ import { DataDialog } from './firebaseDataTypes';
 
 export type AuthState = {
     requesting: boolean;
-    user: User | null;
+    user: User;
     error: null | FirebaseError;
     isRecovered?: boolean;
 };

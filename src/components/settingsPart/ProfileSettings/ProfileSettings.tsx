@@ -1,20 +1,21 @@
 import * as Yup from 'yup';
+import { toast, ToastOptions } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import styles from './ProfileSettings.module.css';
+import React, { useState } from 'react';
+import { AppState } from '../../../types/types';
+import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import { emailSchema, passwordSchema, confirmPasswordSchema } from '../../../utils';
 import {
     updateNameRequest,
     updatePasswordRequest,
     updateEmailRequest
 } from '../../../redux/actions/actions';
-import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
-import { auth } from '../../../firebase';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
 
-const toastParams = {
+import styles from './ProfileSettings.module.css';
+
+const toastParams: ToastOptions = {
     position: 'top-right',
     autoClose: 5000,
     hideProgressBar: true,
@@ -27,7 +28,7 @@ const toastParams = {
 
 function ProfileSettings() {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.authReducer.user);
+    const user = useSelector((state: AppState) => state.authReducer.user);
     const validationSchema = Yup.object().shape({
         name: Yup.string(),
         email: emailSchema,
@@ -35,19 +36,19 @@ function ProfileSettings() {
         confirmPassword: confirmPasswordSchema
     });
     const [reAuthFormDisplay, setReAuthFormDisplay] = useState('none');
-    const [updatingFunction, setUpdatingFunction] = useState({});
+    const [updatingFunction, setUpdatingFunction] = useState<() => void>(() => {});
     const [password, setPassword] = useState('');
 
-    const reAuthentication = e => {
+    const reAuthentication = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const credential = EmailAuthProvider.credential(user.email, password);
-        reauthenticateWithCredential(auth.currentUser, credential)
+        const credential = EmailAuthProvider.credential(user.email || '', password);
+        reauthenticateWithCredential(user, credential)
             .then(() => setReAuthFormDisplay('none'))
-            .then(() => updatingFunction.update())
+            .then(() => updatingFunction())
             .catch(error => console.log(error));
     };
 
-    const handleSubmit = (e, field, value) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>, field: string, value: string) => {
         e.preventDefault();
         if (value) {
             switch (field) {
@@ -55,14 +56,14 @@ function ProfileSettings() {
                     if (user.displayName !== value) {
                         dispatch(updateNameRequest(value));
                     } else {
-                        alert('This name is already in use');
+                        toast.error('This name is already in use', toastParams);
                     }
                     break;
 
                 case 'email':
                     if (user.email !== value) {
                         setReAuthFormDisplay('flex');
-                        setUpdatingFunction({ update: () => dispatch(updateEmailRequest(value)) });
+                        setUpdatingFunction(() => dispatch(updateEmailRequest(value)));
                     } else {
                         toast.error('This email is already in use', toastParams);
                     }
@@ -70,11 +71,11 @@ function ProfileSettings() {
 
                 case 'password':
                     setReAuthFormDisplay('flex');
-                    setUpdatingFunction({ update: () => dispatch(updatePasswordRequest(value)) });
+                    setUpdatingFunction(() => dispatch(updatePasswordRequest(value)));
                     break;
 
                 default:
-                    alert('Something wrong with site. Contact technical support.');
+                    toast.error('Something wrong with site. Contact technical support.', toastParams);
             }
         } else {
             alert('empty');
@@ -93,6 +94,7 @@ function ProfileSettings() {
                     confirmPassword: ''
                 }}
                 validationSchema={validationSchema}
+                onSubmit={() => {}}
             >
                 {formik => (
                     <>
@@ -120,11 +122,11 @@ function ProfileSettings() {
 
                         <Form
                             className={styles.form}
-                            onKeyDown={e =>
-                                e.keyCode === 13
-                                    ? handleSubmit(e, 'password', formik.values.password)
-                                    : null
-                            }
+                            onKeyDown={e => {
+                                if(e.keyCode === 13) {
+                                    handleSubmit(e, 'password', formik.values.password);
+                                }
+                            }}
                         >
                             <h3>Update Password</h3>
                             <Field type="password" name="password" />
