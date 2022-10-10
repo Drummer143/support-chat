@@ -21,7 +21,7 @@ function ForgotPassword() {
         if (error) {
             dispatch(resetError());
         }
-    }, []);
+    });
 
     return isRecovered ? (
         <Navigate to="/forgot-password-redirect" />

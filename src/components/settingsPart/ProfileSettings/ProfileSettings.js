@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import styles from './ProfileSettings.module.css';
 import { emailSchema, passwordSchema, confirmPasswordSchema } from '../../../utils';

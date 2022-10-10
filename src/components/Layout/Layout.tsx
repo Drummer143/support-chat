@@ -27,7 +27,7 @@ function Layout() {
                 navigate('/main/dialogs');
             }
         });
-    }, []);
+    });
 
     return (
         <div className={styles.wrapper}>

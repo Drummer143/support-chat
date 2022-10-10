@@ -21,10 +21,7 @@ function ListOfDialogs() {
 
     useEffect(() => setCountOfDialogs(10), [activeSearchParams, status]);
 
-    useEffect(
-        debounce(() => setActiveSearchParams(searchInput), 500),
-        [searchInput]
-    );
+    useEffect(() => debounce(() => setActiveSearchParams(searchInput), 500), [searchInput]);
 
     return (
         <div className={styles.wrapper}>

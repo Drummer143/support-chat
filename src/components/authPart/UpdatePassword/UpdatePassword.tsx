@@ -27,7 +27,7 @@ function UpdatePassword() {
         if (error) {
             dispatch(resetError());
         }
-    }, []);
+    });
 
     return isRecovered ? (
         <Navigate to="/update-password-redirect" />

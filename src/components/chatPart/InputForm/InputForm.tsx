@@ -108,16 +108,6 @@ function InputForm({ input, setInput, id, dialogId, status }: Props) {
                 </button>
             </div>
         </form>
-
-        /* <form
-            onSubmit={e => {
-                e.preventDefault();
-                console.log(imageInput);
-            }}
-        >
-            <InputFileButton setImageInput={setImageInput} />
-            <button type='submit' onClick={uploadImage}>Upload</button>
-        </form> */
     );
 }
 

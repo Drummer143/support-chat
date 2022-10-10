@@ -1,5 +1,3 @@
-import { faPaperclip } from '@fortawesome/fontawesome-free-solid';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useRef } from 'react';
 
 import { ReactComponent as PaperClip } from '../../assets/PaperClip.svg';
@@ -32,7 +30,6 @@ function InputFileButton({
                 multiple={true}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     if (e?.target?.files) {
-                        const a = e.target.files[0];
                         setImageInput(e.target.files[0]);
                     }
                 }}

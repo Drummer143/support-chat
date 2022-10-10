@@ -1,14 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './../commonStyles.css';
 
 function UpdatePasswordRedirect() {
     const navigate = useNavigate();
+    const [timer, setTimer] = useState<NodeJS.Timeout>();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
-        setTimeout(() => navigate('/'), 10000);
-    }, []);
+        setTimer(setTimeout(() => navigate('/'), 10000));
+
+        return () => clearTimeout(timer);
+    });
 
     return (
         <div className="wrapper">

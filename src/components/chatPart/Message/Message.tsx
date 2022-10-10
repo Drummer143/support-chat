@@ -1,5 +1,4 @@
 import Moment from 'react-moment';
-import { useEffect, useState } from 'react';
 
 import { DataMessage } from '../../../types/firebaseDataTypes';
 

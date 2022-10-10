@@ -30,7 +30,7 @@ function SignUpForm() {
         if (error) {
             dispatch(resetError());
         }
-    }, []);
+    });
 
     return (
         <Formik

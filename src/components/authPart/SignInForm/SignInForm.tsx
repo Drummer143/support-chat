@@ -34,7 +34,7 @@ function SignInForm() {
         if (error) {
             dispatch(resetError());
         }
-    }, []);
+    });
 
     return (
         <Formik

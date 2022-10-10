@@ -14,8 +14,9 @@ const useUpdateDialogs = () => {
 
     useEffect(() => {
         getDialogs();
+
         return () => off(dbRef);
-    }, []);
+    });
 };
 
 export default useUpdateDialogs;

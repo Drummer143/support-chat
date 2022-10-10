@@ -1,6 +1,4 @@
-import { faArrowLeft } from '@fortawesome/fontawesome-free-solid';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { ReactComponent as ArrowLeft } from '../../assets/ArrowLeft.svg';
 
