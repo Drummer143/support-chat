@@ -1,6 +1,6 @@
 import { FirebaseError } from 'firebase/app';
 
-import { Action } from '../../types';
+import { Action } from '../../types/types';
 
 export const FETCH_LOGIN_EMAIL_REQUEST = 'FETCH_LOGIN_EMAIL_REQUEST';
 export const FETCH_LOGIN_GOOGLE_REQUEST = 'FETCH_LOGIN_GOOGLE_REQUEST';

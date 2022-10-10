@@ -1,7 +1,7 @@
 import { CHANGE_STATUS, FETCH_GET_DATA } from '../actions/actions';
 import { FETCH_SIGN_OUT_SUCCESS } from '../actions/actions';
 import { chatDefaultState } from '../defaultState';
-import { Action } from '../../types';
+import { Action } from '../../types/types';
 
 const chatReducer = (state = chatDefaultState, action: Action) => {
     switch (action.type) {

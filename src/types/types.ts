@@ -1,24 +1,25 @@
-import { MultiFactorUser } from "firebase/auth"
+import { User } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
-import { PersistState } from "redux-persist";
+import { PersistState } from 'redux-persist';
+import { Dialog } from './firebaseDataTypes';
 
 export type AuthState = {
     requesting: boolean
-    user: false | MultiFactorUser
+    user: User | null
     error: null | FirebaseError
     isRecovered?: boolean
 }
 
 export type ChatState = {
     status: string
-    dialogs: []
+    dialogs: Dialog[]
 }
 
 export type Action = {
     type?: string
     error?: FirebaseError
     status?: string
-    dialogs?: []
+    dialogs?: Dialog[]
     email?: string
     password?: string
     oobCode?: string

@@ -4,7 +4,7 @@ function SnippetPanel({ addSnippet }) {
     const snippets = [
         'Snippet 1',
         'Sentence',
-        'BEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG word',
+        'word',
         'Snippet Snippet Snippet Snippet',
         'Snippet Snippet Snippet Snippet Snippet',
         'Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet'
@@ -14,7 +14,7 @@ function SnippetPanel({ addSnippet }) {
         <div className={styles.snippets}>
             <h4>Your snippets</h4>
             {snippets.map(snippet => (
-                <button onClick={() => addSnippet(snippet)} className={styles.snippet}>
+                <button key={snippet} onClick={() => addSnippet(snippet)} className={styles.snippet}>
                     {snippet}
                 </button>
             ))}

@@ -1,8 +1,8 @@
-import { AuthState, ChatState } from "../types";
+import { AuthState, ChatState } from "../types/types";
 
 export const authDefaultState: AuthState = {
     requesting: false,
-    user: false,
+    user: null,
     error: null
 };
 

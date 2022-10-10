@@ -12,7 +12,7 @@ import UpdatePassword from '../authPart/UpdatePassword/UpdatePassword';
 import SettingsPage from '../settingsPart/SettingsPage/SettingsPage';
 import ForgotPasswordRedirect from '../authPart/ForgotPasswordRedirect/ForgotPasswordRedirect';
 import UpdatePasswordRedirect from '../authPart/UpdatePasswordRedirect/UpdatePasswordRedirect';
-import { AppState } from '../../types';
+import { AppState } from '../../types/types';
 
 function RoutingTree() {
     const user = useSelector((state: AppState) => state.authReducer.user);

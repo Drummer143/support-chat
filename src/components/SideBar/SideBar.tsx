@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { faFloppyDisk, faHourglass } from '@fortawesome/free-regular-svg-icons';
 
 import SideBarButton from './../SideBarButton/SideBarButton';
-import { AppState } from '../../types';
+import { AppState } from '../../types/types';
 import { changeStatus } from '../../redux/actions/actions';
 
 function SideBar() {
@@ -39,7 +39,7 @@ function SideBar() {
 
     return (
         <nav>
-            {cells.map(({ status, icon }) => <SideBarButton status={status} currentStatus={currentStatus} icon={icon} text={status.replace(status[0], status[0].toLowerCase())} handleClick={handleClick} />)}
+            {cells.map(({ status, icon }) => <SideBarButton key={status} status={status} currentStatus={currentStatus} icon={icon} text={status.replace(status[0], status[0].toLowerCase())} handleClick={handleClick} />)}
         </nav>
     );
 }
