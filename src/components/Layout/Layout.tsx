@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import Header from './../Header/Header';
+import Header from '../Header/Header';
 import Navbar from '../SideBar/SideBar';
-import useLoadDialogs from './useLoadDialogs';
+import useUpdateDialogs from './useLoadDialogs';
 import { auth } from '../../firebase';
 
 import styles from './Layout.module.css';
@@ -13,7 +13,7 @@ function Layout() {
     /* const [token, setToken] = useState(); */
     const { pathname } = useLocation();
 
-    useLoadDialogs();
+    useUpdateDialogs();
 
     useEffect(() => {
         return auth.onAuthStateChanged(user => {

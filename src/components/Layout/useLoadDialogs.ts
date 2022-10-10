@@ -5,7 +5,7 @@ import { ref, onValue, off } from 'firebase/database';
 import { database } from '../../firebase';
 import { getDataSuccess } from '../../redux/actions/actions';
 
-const useLoadDialogs = () => {
+const useUpdateDialogs = () => {
     const dispatch = useDispatch();
 
     const dbRef = ref(database, 'dialogs/');
@@ -18,4 +18,4 @@ const useLoadDialogs = () => {
     }, []);
 };
 
-export default useLoadDialogs;
+export default useUpdateDialogs;

@@ -6,7 +6,7 @@ import Message from '../Message/Message';
 import InputForm from '../InputForm/InputForm';
 import HomeButton from '../../HomeButton/HomeButton';
 import SnippetPanel from '../SnippetPanel/SnippetPanel';
-import { Dialog } from '../../../types/firebaseDataTypes';
+import { DataDialog } from '../../../types/firebaseDataTypes';
 
 import styles from './Chat.module.css';
 import { AppState } from '../../../types/types';
@@ -17,7 +17,7 @@ type URLParams = {
 
 function Chat() {
     const params = useParams<URLParams>();
-    const dialog: Dialog | undefined = useSelector((state: AppState) => state.chatReducer.dialogs.find(dialog => dialog.dialogId === Number(params.id)));
+    const dialog: DataDialog | undefined = useSelector((state: AppState) => state.chatReducer.dialogs.find(dialog => dialog.dialogId === Number(params.id)));
     const [rating] = useState(dialog?.status === 'completed' ? dialog?.rating : null);
     const [input, setInput] = useState('');
 
@@ -55,9 +55,9 @@ function Chat() {
             <InputForm
                 input={input}
                 setInput={setInput}
-                id={messages?.length}
-                dialogId={dialog?.dialogId}
-                status={dialog?.status}
+                id={`${messages?.length}`}
+                dialogId={dialog?.dialogId || 0}
+                status={dialog?.status || 'queue'}
             />
 
             <SnippetPanel addSnippet={addSnippet} />

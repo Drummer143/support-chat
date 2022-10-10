@@ -1,26 +1,24 @@
 import * as Yup from 'yup';
 import { Fade } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 
-import { resetError, signUpEmailRequest } from '../../../redux/actions/actions';
-import {
-    handleAuthError,
-    emailSignUpValSchema,
-    passwordSignUpValSchema,
-    confirmPasswordSchema
-} from '../../../utils';
+import { AppState } from '../../../types/types';
+import { passwordUpdateRequest, resetError } from '../../../redux/actions/actions';
+import { handleAuthError, passwordSignUpValSchema, confirmPasswordSchema } from '../../../utils';
 
 import './../commonStyles.css';
-import styles from './SignUpForm.module.css';
+import styles from './UpdatePassword.module.css';
 
-function SignUpForm() {
+function UpdatePassword() {
     const dispatch = useDispatch();
-    const error = useSelector(state => state.authReducer.error);
+    const { error, isRecovered } = useSelector((state: AppState) => state.authReducer);
+
+    const [searchParams] = useSearchParams();
+    const oobCode = searchParams.get('oobCode');
     const validationSchema = Yup.object().shape({
-        email: emailSignUpValSchema,
         password: passwordSignUpValSchema,
         confirmPassword: confirmPasswordSchema
     });
@@ -31,21 +29,23 @@ function SignUpForm() {
         }
     }, []);
 
-    return (
+    return isRecovered ? (
+        <Navigate to="/update-password-redirect" />
+    ) : (
         <Formik
-            initialValues={{ email: '', password: '', confirmPassword: '' }}
+            initialValues={{ password: '', confirmPassword: '' }}
             validationSchema={validationSchema}
-            onSubmit={values => dispatch(signUpEmailRequest(values))}
+            onSubmit={values => {
+                dispatch(
+                    passwordUpdateRequest({
+                        password: values.password,
+                        oobCode
+                    })
+                )
+            }}
         >
             <Form className="wrapper">
-                <h1>Create an account</h1>
-
-                <div className="inputWrapper">
-                    <Field name="email" type="text" placeholder="email" className="inputField" />
-                    <div className="error">
-                        <ErrorMessage name="email" />
-                    </div>
-                </div>
+                <h1>Update password</h1>
 
                 <div className="inputWrapper">
                     <Field
@@ -81,16 +81,9 @@ function SignUpForm() {
                 <button type="submit" className={`${styles.submit} submit`}>
                     Submit
                 </button>
-
-                <div className={styles.footer}>
-                    Already have an account? Login{' '}
-                    <NavLink to="/sign-in" className={styles.footerLink}>
-                        here
-                    </NavLink>
-                </div>
             </Form>
         </Formik>
     );
 }
 
-export default SignUpForm;
+export default UpdatePassword;

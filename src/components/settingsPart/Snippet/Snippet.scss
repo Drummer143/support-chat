@@ -1,37 +1,4 @@
 .wrapper {
-    width: 50%;
-    height: 100%;
-
-    padding: 10px;
-
-    h2 {
-        margin: 0 0 25px 20px;
-
-        color: #fff;
-    }
-
-    > div {
-        width: 80%;
-
-        padding: 20px;
-
-        background-color: #eee;
-        border-radius: 10px;
-    }
-}
-
-.list {
-    min-height: 568px;
-    max-height: calc(100vh - 140px - 217px);
-
-    padding: 10px;
-
-    border-radius: 10px;
-    overflow-y: auto;
-    outline: solid 2px #00000030;
-}
-
-.cell {
     display: flex;
 
     align-items: center;
@@ -43,10 +10,6 @@
 
         flex-wrap: nowrap;
     }
-}
-
-.addNewSnippet {
-    margin-top: 10px;
 }
 
 textarea {

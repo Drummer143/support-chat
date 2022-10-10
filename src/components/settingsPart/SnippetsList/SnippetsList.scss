@@ -1,0 +1,65 @@
+.wrapper {
+    width: 50%;
+    height: 100%;
+
+    padding: 10px;
+
+    h2 {
+        margin: 0 0 25px 20px;
+
+        color: #fff;
+    }
+
+    > div {
+        width: 80%;
+
+        padding: 20px;
+
+        background-color: #eee;
+        border-radius: 10px;
+    }
+}
+
+.list {
+    min-height: 568px;
+    max-height: calc(100vh - 140px - 217px);
+
+    padding: 10px;
+
+    border-radius: 10px;
+    overflow-y: auto;
+    outline: solid 2px #00000030;
+}
+
+.addNewSnippet {
+    margin-top: 10px;
+}
+
+.button {
+    height: 40px;
+    width: fit-content;
+    min-width: 70px;
+
+    margin: 10px;
+    padding: 0 10px;
+
+    border-radius: 10px;
+}
+
+.button:hover {
+    box-shadow: 0 0 10px 5px #00000050 inset;
+}
+
+.button:active {
+    box-shadow: 0 0 0 5px #00000050 inset;
+}
+
+.redButton {
+    background-color: #f00;
+    color: #fff;
+}
+
+.greenButton {
+    background-color: #00910f;
+    color: #fff;
+}

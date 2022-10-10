@@ -5,6 +5,7 @@ import { Navigate, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 
+import { AppState } from '../../../types/types';
 import { passwordRecoverRequest, resetError } from '../../../redux/actions/actions';
 import { handleAuthError, emailSignInValSchema } from '../../../utils';
 
@@ -13,7 +14,7 @@ import styles from './ForgotPassword.module.css';
 
 function ForgotPassword() {
     const dispatch = useDispatch();
-    const { isRecovered, error } = useSelector(state => state.authReducer);
+    const { isRecovered, error } = useSelector((state: AppState) => state.authReducer);
     const validationSchema = Yup.object().shape({ email: emailSignInValSchema });
 
     useEffect(() => {
@@ -28,7 +29,9 @@ function ForgotPassword() {
         <Formik
             initialValues={{ email: '' }}
             validationSchema={validationSchema}
-            onSubmit={values => dispatch(passwordRecoverRequest(values))}
+            onSubmit={(values, actions) => {
+                dispatch(passwordRecoverRequest(values));
+            }}
         >
             <Form className="wrapper">
                 <h1>Recover password</h1>

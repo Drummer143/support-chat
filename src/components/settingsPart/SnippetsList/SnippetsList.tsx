@@ -1,63 +1,32 @@
-import { text } from '@fortawesome/fontawesome-svg-core';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
-import styles from './Snippets.module.css';
+import Snippet from '../Snippet/Snippet';
+
+import styles from './SnippetsList.module.css';
 
 let arr = [
     'Snippet 1',
     'Sentence',
-    'BEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG word',
+    'word',
     'Snippet Snippet Snippet Snippet',
     'Snippet Snippet Snippet Snippet Snippet',
     'Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet'
 ];
 
-const Snippet = ({ text, deleteSnippet, handleSaveEditedSnippet: handleSave }) => {
-    const [isDisabled, setDisabled] = useState(true);
-    const [input, setInput] = useState(text);
-
-    return (
-        <div className={styles.cell}>
-            <textarea
-                type="text"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                disabled={text ? isDisabled : true}
-                className={styles.textarea}
-            />
-            <div>
-                <button
-                    onClick={() => handleSave(text, input, setDisabled)}
-                    className={`${styles.button} ${styles.greenButton}`}
-                >
-                    {isDisabled ? 'Edit' : 'Save'}
-                </button>
-                {!isDisabled || (
-                    <button
-                        type="button"
-                        onClick={() => deleteSnippet(text)}
-                        className={`${styles.button} ${styles.redButton}`}
-                    >
-                        Delete
-                    </button>
-                )}
-            </div>
-        </div>
-    );
-};
-
-function Snippets() {
+function SnippetsList() {
     const [snippets, setSnippets] = useState(arr);
     const [inputDisplaying, setInputDisplaying] = useState('none');
     const [newSnippetText, setNewSnippetText] = useState('');
+    const newSnippetInputRef = useRef<HTMLTextAreaElement>(null);
 
-    const deleteSnippet = text => {
+    const handleDelete = (text: string) => {
         setSnippets(prev => prev.filter(item => item !== text));
     };
 
-    const handleClick = () => {
+    const handleCreateNewSnippet = () => {
         if (inputDisplaying === 'none') {
             setInputDisplaying('initial');
+            setTimeout(() => newSnippetInputRef.current?.focus());
         } else {
             if (newSnippetText && !snippets.includes(newSnippetText)) {
                 let s = snippets.slice();
@@ -69,14 +38,14 @@ function Snippets() {
         }
     };
 
-    const handleSaveEditedSnippet = (oldText, newText, setDisabled) => {
+    const handleSave = (oldText: string, newText: string, setDisabled: Function) => {
         if (newText) {
             let s = snippets.slice();
             s[s.indexOf(oldText)] = newText;
             setSnippets(s);
-            setDisabled(prev => !prev);
+            setDisabled((prev: boolean) => !prev);
         } else {
-            deleteSnippet(oldText);
+            handleDelete(oldText);
         }
     };
 
@@ -88,18 +57,18 @@ function Snippets() {
                     {snippets &&
                         snippets.map((snippet, i) => (
                             <Snippet
+                                key={snippet + i}
                                 text={snippet}
-                                key={snippet}
-                                deleteSnippet={deleteSnippet}
-                                handleSaveEditedSnippet={handleSaveEditedSnippet}
+                                handleDelete={handleDelete}
+                                handleSave={handleSave}
                             />
                         ))}
                 </div>
 
                 <div className={styles.addNewSnippet}>
                     <textarea
-                        type="text"
                         style={{ display: inputDisplaying, resize: 'none' }}
+                        ref={newSnippetInputRef}
                         value={newSnippetText}
                         onChange={e => setNewSnippetText(e.target.value)}
                         className={styles.textarea}
@@ -107,7 +76,7 @@ function Snippets() {
                     <div>
                         <button
                             type="button"
-                            onClick={handleClick}
+                            onClick={handleCreateNewSnippet}
                             className={`${styles.button} ${styles.greenButton}`}
                         >
                             {inputDisplaying === 'none' ? 'Add' : 'Save'} snippet
@@ -127,4 +96,4 @@ function Snippets() {
     );
 }
 
-export default Snippets;
+export default SnippetsList;

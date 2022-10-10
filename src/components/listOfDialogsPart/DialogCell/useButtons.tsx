@@ -1,20 +1,22 @@
 import mapRating from './mapRating';
 
-import Button from './../Button/Button';
+import Button from '../Button/Button';
+import { DataDialog } from '../../../types/firebaseDataTypes';
 
 import styles from './DialogCell.module.css';
 
-const useButtons = ({ dialogId, status, saved, rating }) => {
+const useButtons = ({ dialogId, status, saved, rating }: DataDialog) => {
+    let ratingComponents: JSX.Element | JSX.Element[] | null = null;
     if (status === 'completed') {
-        rating = mapRating(rating);
+        ratingComponents = mapRating(rating);
     }
 
     const buttons = {
         complete: (
             <Button
                 dialogId={dialogId}
-                btnColor="complete"
-                newStatus="complete"
+                buttonColor="complete"
+                newStatus="completed"
                 path="status"
                 text="Complete dialog"
             />
@@ -22,7 +24,7 @@ const useButtons = ({ dialogId, status, saved, rating }) => {
         save: (
             <Button
                 dialogId={dialogId}
-                btnColor="save"
+                buttonColor="save"
                 newStatus={true}
                 path="saved"
                 text="Save dialog"
@@ -31,7 +33,7 @@ const useButtons = ({ dialogId, status, saved, rating }) => {
         deleteFromSaved: (
             <Button
                 dialogId={dialogId}
-                btnColor="delete"
+                buttonColor="delete"
                 newStatus={false}
                 path="saved"
                 text="Delete from saved"
@@ -40,7 +42,7 @@ const useButtons = ({ dialogId, status, saved, rating }) => {
         enterDialog: (
             <Button
                 dialogId={dialogId}
-                btnColor="accept"
+                buttonColor="accept"
                 newStatus="active"
                 path="status"
                 text="Accept dialog"
@@ -57,7 +59,7 @@ const useButtons = ({ dialogId, status, saved, rating }) => {
         }
         case 'completed': {
             return {
-                first: <div className={`${styles.button} ${styles.rating}`}>{rating}</div>,
+                first: <div className={`${styles.button} ${styles.rating}`}>{ratingComponents}</div>,
                 second: saved ? buttons.deleteFromSaved : buttons.save
             };
         }

@@ -1,6 +1,10 @@
 import styles from './SnippetPanel.module.css';
 
-function SnippetPanel({ addSnippet }) {
+type Props = {
+    addSnippet: (value: string) => void
+}
+
+function SnippetPanel({ addSnippet }: Props) {
     const snippets = [
         'Snippet 1',
         'Sentence',

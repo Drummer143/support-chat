@@ -44,7 +44,7 @@ export const passwordResetSuccess = () => ({
     type: FETCH_PASSWORD_RECOVER_SUCCESS
 });
 
-export const passwordUpdateRequest = ({ password = '', oobCode = '' }: Action) => ({
+export const passwordUpdateRequest = ({ password = '', oobCode = null }: Action) => ({
     type: FETCH_PASSWORD_UPDATE_REQUEST,
     password,
     oobCode
@@ -66,9 +66,8 @@ export const changeStatus = (status: string) => ({
     status
 });
 
-export const getDataSuccess = (dialogs: [], status: string) => ({
+export const getDataSuccess = (dialogs: []) => ({
     type: FETCH_GET_DATA,
-    status,
     dialogs
 });
 

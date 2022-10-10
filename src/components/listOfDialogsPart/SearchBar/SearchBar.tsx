@@ -1,12 +1,17 @@
 import styles from './SearchBar.module.css';
 
-function SearchBar({ value, setValue }) {
+type Props = {
+    input: string
+    setInput: (value: string) => void
+}
+
+function SearchBar({ input, setInput }: Props) {
     return (
         <div>
             <input
                 type="text"
-                onChange={e => setValue(e.target.value)}
-                value={value}
+                onChange={e => setInput(e.target.value)}
+                value={input}
                 placeholder="type here to search..."
                 className={styles.input}
             ></input>

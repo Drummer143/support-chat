@@ -2,10 +2,15 @@ import Moment from 'react-moment';
 import { NavLink } from 'react-router-dom';
 
 import useButtons from './useButtons';
+import { DataDialog } from '../../../types/firebaseDataTypes';
 
 import styles from './DialogCell.module.css';
 
-function DialogCell({ dialog }) {
+type Props = {
+    dialog: DataDialog
+}
+
+function DialogCell({ dialog }: Props) {
     const lastMessage = dialog.messages[dialog.messages.length - 1];
     const currButtonSet = useButtons(dialog);
 

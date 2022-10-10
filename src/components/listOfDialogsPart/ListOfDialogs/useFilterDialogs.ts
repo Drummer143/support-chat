@@ -1,19 +1,22 @@
 import { useSelector } from 'react-redux';
 
-const useGetData = searchParams => {
-    const status = useSelector(state => state.chatReducer.status);
-    const dialogs = useSelector(state => state.chatReducer.dialogs);
+import { AppState } from '../../../types/types';
+import { DataDialog } from '../../../types/firebaseDataTypes';
 
-    const inputFilter = dialog => {
+const useGetData = (searchParams: string) => {
+    const status = useSelector((state: AppState) => state.chatReducer.status);
+    const dialogs = useSelector((state: AppState) => state.chatReducer.dialogs);
+
+    const inputFilter = (dialog: DataDialog) => {
         return (
             dialog.userName.toLowerCase().includes(searchParams.toLowerCase()) ||
             dialog.messages.find(message =>
-                message.content.toLowerCase().includes(searchParams.toLowerCase())
+                message.content?.toLowerCase().includes(searchParams.toLowerCase())
             )
         );
     };
 
-    const statusFilter = dialog => {
+    const statusFilter = (dialog: DataDialog) => {
         if (status === 'saved') {
             return dialog.saved;
         } else {

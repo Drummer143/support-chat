@@ -1,15 +1,17 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/fontawesome-free-solid';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { ReactComponent as ArrowLeft } from '../../assets/ArrowLeft.svg';
 
 import styles from './HomeButton.module.css';
 
-/* type Props = {
+type Props = {
     width?: number | null
     height?: number | null
-} */
+}
 
-function HomeButton({ width = null, height = null }/* : Props */) {
+function HomeButton({ width = null, height = null }: Props) {
     const navigate = useNavigate();
 
     return (
@@ -23,7 +25,7 @@ function HomeButton({ width = null, height = null }/* : Props */) {
                 height: height || '50px'
             }}
         >
-            <FontAwesomeIcon icon={faArrowLeft} className={styles.icon} />
+            <ArrowLeft className={styles.icon} />
         </button>
     );
 }

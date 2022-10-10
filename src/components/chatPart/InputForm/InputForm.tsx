@@ -4,19 +4,29 @@ import { ref as dRef, update } from 'firebase/database';
 import { ref as sRef, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 
 import InputFileButton from './../../InputFileButton/InputFileButton';
+import { DialogStatus, DynamicObject } from '../../../types/types';
 import { database, storage } from '../../../firebase';
 
 import styles from './InputForm.module.css';
 
-function InputForm({ input, setInput, id, dialogId, status }) {
+type Props = {
+    input: string
+    setInput: (value: string) => void;
+    id: string
+    dialogId: number
+    status: DialogStatus
+}
+
+function InputForm({ input, setInput, id, dialogId, status }: Props) {
     const [localInput, setLocalInput] = useState(input);
-    const [imageInput, setImageInput] = useState(null);
+    const [imageInput, setImageInput] = useState<File | null>();
 
     useEffect(() => setLocalInput(input), [input]);
 
     const dbRef = dRef(database);
 
     const uploadImage = () => {
+        if (!imageInput) return;
         const imageRef = sRef(storage, `d${dialogId}/m${id}/${imageInput.name}_${v4()}`);
         uploadBytes(imageRef, imageInput).then(() => {
             const imageRef = sRef(storage, `d${dialogId}/m${id}`);
@@ -28,7 +38,7 @@ function InputForm({ input, setInput, id, dialogId, status }) {
                         image: url,
                         writtenBy: 'client'
                     };
-                    let updates = {};
+                    let updates: DynamicObject = {};       // TODO: ADD TYPES
                     updates[`/dialogs/${dialogId}/messages/${id}/`] = message;
                     update(dbRef, updates);
                 });
@@ -44,7 +54,7 @@ function InputForm({ input, setInput, id, dialogId, status }) {
             timestamp: date.getTime(),
             writtenBy: 'client'
         };
-        let updates = {};
+        let updates: DynamicObject = {};       // TODO: ADD TYPE
         updates[`/dialogs/${dialogId}/messages/${id}`] = message;
         update(dbRef, updates);
     };
@@ -70,7 +80,6 @@ function InputForm({ input, setInput, id, dialogId, status }) {
             <div className={styles.inputField}>
                 <textarea
                     name="input"
-                    type="text"
                     onChange={e => setInput(e.target.value)}
                     value={localInput}
                     className={styles.textarea}
@@ -79,7 +88,7 @@ function InputForm({ input, setInput, id, dialogId, status }) {
                     disabled={isDisabled}
                 />
 
-                <InputFileButton returnImage={setImageInput} isDisabled={isDisabled} />
+                <InputFileButton setImageInput={setImageInput} isDisabled={isDisabled} />
             </div>
             <div className={styles.buttons}>
                 <button

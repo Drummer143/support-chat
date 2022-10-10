@@ -1,15 +1,19 @@
-export type Message = {
-    content: string
+import { DialogStatus } from './types';
+
+export type DataMessage = {
     timestamp: number
     writtenBy: string
+
+    content?: string
+    image: string
 };
 
-export type Dialog = {
+export type DataDialog = {
     dialogId: number
-    messages: Message[]
+    messages: DataMessage[]
     operatorId: number
     saved: boolean
-    status: 'active' | 'completed' | 'queue'
+    status: DialogStatus
     userName: string
 
     rating?: number

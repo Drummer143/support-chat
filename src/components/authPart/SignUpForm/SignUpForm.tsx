@@ -1,24 +1,27 @@
 import * as Yup from 'yup';
 import { Fade } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useSearchParams } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 
-import { passwordUpdateRequest, resetError } from '../../../redux/actions/actions';
-import { handleAuthError, passwordSignUpValSchema, confirmPasswordSchema } from '../../../utils';
+import { AppState } from '../../../types/types';
+import { resetError, signUpEmailRequest } from '../../../redux/actions/actions';
+import {
+    handleAuthError,
+    emailSignUpValSchema,
+    passwordSignUpValSchema,
+    confirmPasswordSchema
+} from '../../../utils';
 
 import './../commonStyles.css';
-import styles from './UpdatePassword.module.css';
+import styles from './SignUpForm.module.css';
 
-function UpdatePassword() {
+function SignUpForm() {
     const dispatch = useDispatch();
-    const error = useSelector(state => state.authReducer.error);
-    const recovered = useSelector(state => state.authReducer.recovered);
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    const oobCode = searchParams.get('oobCode');
+    const error = useSelector((state: AppState) => state.authReducer.error);
     const validationSchema = Yup.object().shape({
+        email: emailSignUpValSchema,
         password: passwordSignUpValSchema,
         confirmPassword: confirmPasswordSchema
     });
@@ -29,23 +32,23 @@ function UpdatePassword() {
         }
     }, []);
 
-    return recovered ? (
-        <Navigate to="/update-password-redirect" />
-    ) : (
+    return (
         <Formik
             initialValues={{ email: '', password: '', confirmPassword: '' }}
             validationSchema={validationSchema}
-            onSubmit={values =>
-                dispatch(
-                    passwordUpdateRequest({
-                        password: values.password,
-                        oobCode
-                    })
-                )
-            }
+            onSubmit={values => {
+                dispatch(signUpEmailRequest(values));
+            }}
         >
             <Form className="wrapper">
-                <h1>Update password</h1>
+                <h1>Create an account</h1>
+
+                <div className="inputWrapper">
+                    <Field name="email" type="text" placeholder="email" className="inputField" />
+                    <div className="error">
+                        <ErrorMessage name="email" />
+                    </div>
+                </div>
 
                 <div className="inputWrapper">
                     <Field
@@ -81,9 +84,16 @@ function UpdatePassword() {
                 <button type="submit" className={`${styles.submit} submit`}>
                     Submit
                 </button>
+
+                <div className={styles.footer}>
+                    Already have an account? Login{' '}
+                    <NavLink to="/sign-in" className={styles.footerLink}>
+                        here
+                    </NavLink>
+                </div>
             </Form>
         </Formik>
     );
 }
 
-export default UpdatePassword;
+export default SignUpForm;

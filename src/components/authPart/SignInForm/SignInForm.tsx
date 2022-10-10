@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 
+import { AppState } from '../../../types/types';
 import { handleAuthError, emailSignInValSchema, passwordSignInValSchema } from '../../../utils';
 import {
     resetError,
@@ -19,7 +20,7 @@ import styles from './SignInForm.module.css';
 
 function SignInForm() {
     const dispatch = useDispatch();
-    const error = useSelector(state => state.authReducer.error);
+    const error = useSelector((state: AppState) => state.authReducer.error);
     const validationSchema = Yup.object().shape({
         email: emailSignInValSchema,
         password: passwordSignInValSchema
@@ -39,7 +40,9 @@ function SignInForm() {
         <Formik
             initialValues={initialValue}
             validationSchema={validationSchema}
-            onSubmit={values => dispatch(signInEmailRequest(values))}
+            onSubmit={values => {
+                dispatch(signInEmailRequest(values));
+            }}
         >
             <Form className="wrapper">
                 <h1>Welcome back!</h1>
