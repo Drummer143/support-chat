@@ -11,10 +11,17 @@
     --green: #009100;
 }
 
-button {
-    border: none;
-}
-
 p {
     margin: 0;
+}
+
+textarea,
+button,
+input {
+    border: none;
+    outline: none;
+}
+
+button:not(:disabled) {
+    cursor: pointer;
 }

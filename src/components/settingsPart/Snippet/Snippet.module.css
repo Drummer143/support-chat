@@ -1,0 +1,55 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+}
+.wrapper div {
+    margin-left: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+textarea {
+    width: 70%;
+    min-height: 40px;
+    max-height: 150px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    outline: solid 2px #3a5199;
+}
+
+textarea:disabled {
+    background-color: #fff;
+    color: #000;
+    resize: none;
+    outline: none;
+}
+
+.button {
+    height: 40px;
+    width: fit-content;
+    min-width: 70px;
+    margin: 10px;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+.button:hover {
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3137254902) inset;
+}
+
+.button:active {
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.3137254902) inset;
+}
+
+.redButton {
+    background-color: #f00;
+    color: #fff;
+}
+
+.greenButton {
+    background-color: #00910f;
+    color: #fff;
+}
+
+/*# sourceMappingURL=Snippet.module.css.map */

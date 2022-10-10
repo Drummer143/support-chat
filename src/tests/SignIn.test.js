@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 
-import store from '../redux/store';
+import store from '../redux/store.ts';
 import SignInForm from '../components/SignInForm/SignInForm';
 
 describe('Should render Sign In Form', () => {

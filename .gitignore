@@ -1,0 +1,12 @@
+.firebase
+.vscode
+build
+node_modules
+
+.env
+.eslintrc
+.prettierignore
+.prettierrc.json
+database.rules.json
+firebase.json
+.firebaserc

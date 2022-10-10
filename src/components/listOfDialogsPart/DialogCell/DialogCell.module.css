@@ -89,6 +89,7 @@
     margin: 10px 4px 0 0;
 
     color: #0002;
+    fill: #0002;
 }
 
 .goldStar {
@@ -98,5 +99,6 @@
     margin: 10px 4px 0 0;
 
     color: #ffd700;
+    fill: #ffd700;
     border-radius: 50%;
 }
