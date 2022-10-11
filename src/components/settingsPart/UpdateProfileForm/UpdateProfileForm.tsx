@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import styles from './UpdateProfileForm.module.css';
@@ -8,17 +7,16 @@ import React from 'react';
 type Props = {
     heading: string;
     values: DynamicObject;
+    validationSchema: DynamicObject
     fields: string[];
     types: string[];
     handleSubmit: Function;
 };
 
-function UpdateProfileForm({ heading, fields, types, values, handleSubmit }: Props) {
-    const validationSchema = Yup.object().shape({ name: Yup.string() });
-
+function UpdateProfileForm({ heading, fields, types, validationSchema, values, handleSubmit }: Props) {
     return (
         <Formik
-            initialValues={{ ...values }}
+            initialValues={values}
             validationSchema={validationSchema}
             onSubmit={values => handleSubmit(values)}
         >

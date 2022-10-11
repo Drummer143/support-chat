@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 import { toast, ToastOptions } from 'react-toastify';
 import React, { useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { AppState, DynamicObject } from '../../../types/types';
 import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
@@ -37,12 +36,6 @@ const toastParams: ToastOptions = {
 function ProfileSettings() {
     const dispatch = useDispatch();
     const user = useSelector((state: AppState) => state.authReducer.user);
-    const validationSchema = Yup.object().shape({
-        name: Yup.string(),
-        email: emailSchema,
-        password: passwordSchema,
-        confirmPassword: confirmPasswordSchema
-    });
     const [shouldShowModal, setShouldShowModal] = useState(false);
     const [updatingField, setUpdatingField] = useState({} as UpdatingField);
     const [password, setPassword] = useState('f');
@@ -54,6 +47,7 @@ function ProfileSettings() {
         setUpdatingField({} as UpdatingField);
 
         const credential = EmailAuthProvider.credential(user.email || '', password);
+
         reauthenticateWithCredential(auth.currentUser || user, credential)
             .then(() => setShouldShowModal(false))
             .then(() => {
@@ -79,6 +73,9 @@ function ProfileSettings() {
                 fields={['name']}
                 types={['text']}
                 values={{ name: user.displayName }}
+                validationSchema={Yup.object().shape({
+                    name: Yup.string()
+                })}
                 handleSubmit={({ name }: DynamicObject) => {
                     if (user.displayName !== name) {
                         dispatch(updateNameRequest(name));
@@ -93,6 +90,9 @@ function ProfileSettings() {
                 fields={['email']}
                 types={['text']}
                 values={{ email: user.email }}
+                validationSchema={Yup.object().shape({
+                    email: emailSchema
+                })}
                 handleSubmit={({ email }: DynamicObject) => {
                     if (user.email !== email) {
                         setUpdatingField({ field: 'email', value: email });
@@ -108,6 +108,10 @@ function ProfileSettings() {
                 fields={['password', 'confirmPassword']}
                 types={['password', 'password']}
                 values={{ password: '', confirmPassword: '' }}
+                validationSchema={Yup.object().shape({
+                    password: passwordSchema,
+                    confirmPassword: confirmPasswordSchema
+                })}
                 handleSubmit={({ password }: DynamicObject) => {
                     setUpdatingField({ field: 'password', value: password });
                     setShouldShowModal(true);
