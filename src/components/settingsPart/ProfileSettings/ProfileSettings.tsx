@@ -26,6 +26,11 @@ const toastParams: ToastOptions = {
     theme: 'colored'
 };
 
+type updatingField = {
+    field: string
+    value: string
+}
+
 function ProfileSettings() {
     const dispatch = useDispatch();
     const user = useSelector((state: AppState) => state.authReducer.user);
@@ -36,16 +41,27 @@ function ProfileSettings() {
         confirmPassword: confirmPasswordSchema
     });
     const [reAuthFormDisplay, setReAuthFormDisplay] = useState('none');
-    const [updatingFunction, setUpdatingFunction] = useState<() => void>(() => {});
+    const [updatingField, setUpdatingField] = useState({} as updatingField);
     const [password, setPassword] = useState('');
 
     const reAuthentication = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setPassword('');
         const credential = EmailAuthProvider.credential(user.email || '', password);
         reauthenticateWithCredential(user, credential)
             .then(() => setReAuthFormDisplay('none'))
-            .then(() => updatingFunction())
-            .catch(error => console.log(error));
+            .then(() => {
+                switch (updatingField.field) {
+                    case 'email':
+                        dispatch(updateEmailRequest(updatingField.value));
+                        break;
+
+                    case 'password':
+                        dispatch(updatePasswordRequest(updatingField.value));
+                        break;
+                }
+            })
+            .catch(error => console.error(error));
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>, field: string, value: string) => {
@@ -63,7 +79,7 @@ function ProfileSettings() {
                 case 'email':
                     if (user.email !== value) {
                         setReAuthFormDisplay('flex');
-                        setUpdatingFunction(() => dispatch(updateEmailRequest(value)));
+                        setUpdatingField({ field: 'email', value });
                     } else {
                         toast.error('This email is already in use', toastParams);
                     }
@@ -71,7 +87,7 @@ function ProfileSettings() {
 
                 case 'password':
                     setReAuthFormDisplay('flex');
-                    setUpdatingFunction(() => dispatch(updatePasswordRequest(value)));
+                    setUpdatingField({ field: 'password', value });
                     break;
 
                 default:
