@@ -4,8 +4,9 @@ import { ref as dRef, update } from 'firebase/database';
 import { ref as sRef, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 
 import InputFileButton from './../../InputFileButton/InputFileButton';
-import { DialogStatus, DynamicObject } from '../../../types/types';
+import { DialogStatus } from '../../../types/types';
 import { database, storage } from '../../../firebase';
+import { buildPathToMessages } from '../../../utils';
 
 import styles from './InputForm.module.css';
 
@@ -38,9 +39,7 @@ function InputForm({ input, setInput, id, dialogId, status }: Props) {
                         image: url,
                         writtenBy: 'client'
                     };
-                    let updates: DynamicObject = {}; // TODO: ADD TYPES
-                    updates[`/dialogs/${dialogId}/messages/${id}/`] = message;
-                    update(dbRef, updates);
+                    update(dbRef, { [buildPathToMessages(dialogId, 'messages', id)]: message });
                 });
             });
         });
@@ -54,9 +53,7 @@ function InputForm({ input, setInput, id, dialogId, status }: Props) {
             timestamp: date.getTime(),
             writtenBy: 'client'
         };
-        let updates: DynamicObject = {}; // TODO: ADD TYPE
-        updates[`/dialogs/${dialogId}/messages/${id}`] = message;
-        update(dbRef, updates);
+        update(dbRef, { [buildPathToMessages(dialogId, 'messages', id)]: message });
     };
 
     const isDisabled = status === 'completed' ? true : false;

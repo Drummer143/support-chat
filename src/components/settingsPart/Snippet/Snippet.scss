@@ -12,7 +12,7 @@
     }
 }
 
-textarea {
+.textarea {
     width: 70%;
     min-height: 40px;
     max-height: 150px;
@@ -22,9 +22,11 @@ textarea {
 
     border-radius: 10px;
     outline: solid 2px #3a5199;
+    font-size: 15px;
+    resize: none;
 }
 
-textarea:disabled {
+.textarea:disabled {
     background-color: #fff;
     color: #000;
     resize: none;

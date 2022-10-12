@@ -60,3 +60,7 @@ export const confirmPasswordSchema = Yup.string().oneOf(
     [Yup.ref('password')],
     'Passwords does not match'
 );
+
+export const buildPathToMessages = (dialogId: number, field = 'messages', id = '') =>
+    `/dialogs/${dialogId}/${field}/${id}`;
+export const buildPathToSnippets = (uid: string) => `supportsData/${uid}/snippets`;

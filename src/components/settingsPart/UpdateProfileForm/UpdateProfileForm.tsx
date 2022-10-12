@@ -7,13 +7,20 @@ import React from 'react';
 type Props = {
     heading: string;
     values: DynamicObject;
-    validationSchema: DynamicObject
+    validationSchema: DynamicObject;
     fields: string[];
     types: string[];
     handleSubmit: Function;
 };
 
-function UpdateProfileForm({ heading, fields, types, validationSchema, values, handleSubmit }: Props) {
+function UpdateProfileForm({
+    heading,
+    fields,
+    types,
+    validationSchema,
+    values,
+    handleSubmit
+}: Props) {
     return (
         <Formik
             initialValues={values}
