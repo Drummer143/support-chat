@@ -1,0 +1,38 @@
+.snippets {
+    grid-area: snippets;
+
+    padding: 30px;
+
+    background-color: #eee;
+    border-radius: 10px;
+}
+
+.snippet {
+    width: fit-content;
+    display: block;
+    max-width: 350px;
+
+    margin: 0 auto;
+    padding: 10px;
+
+    word-wrap: break-word;
+    border: solid 2px #3a5199;
+    border-radius: 10px;
+}
+
+.snippet:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.snippet:hover {
+    padding: 9px 10px;
+
+    border: solid 3px #3a5199;
+}
+
+.snippet:active {
+    padding: 9px 10px;
+
+    border: solid 3px #3a5199;
+    background-color: #3a519930;
+}

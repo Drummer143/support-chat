@@ -1,0 +1,27 @@
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-areas: 'header header' 'placeholder body' 'nav body' 'placeholder2 body';
+    grid-template-columns: 160px 1fr;
+    grid-template-rows: 80px 1fr 480px 2fr;
+    font-size: 0.9em;
+}
+
+.header {
+    grid-area: header;
+}
+
+.navbar {
+    grid-area: nav;
+}
+
+.body {
+    grid-area: body;
+    margin: 10px;
+    background-color: #3a5199;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 0px rgba(34, 60, 80, 0.75);
+}
+
+/*# sourceMappingURL=Layout.module.css.map */

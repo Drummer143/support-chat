@@ -1,0 +1,98 @@
+.wrapper {
+    height: 100%;
+
+    padding: 10px;
+
+    display: grid;
+
+    grid-template-areas:
+        'back user rating snippets'
+        'chat chat chat snippets'
+        'input input input snippets';
+    grid-template-columns: 50px 5fr 3fr 3fr;
+    grid-template-rows: 50px 1fr 150px;
+    grid-gap: 10px;
+    color: #2f2e33;
+    overflow: hidden;
+}
+
+.userInfo {
+    grid-area: user;
+
+    min-width: 180px;
+
+    padding: 10px;
+
+    background-color: #eee;
+    border-radius: 10px;
+}
+
+.rating {
+    grid-area: rating;
+
+    min-width: 330px;
+
+    padding: 0 10px;
+
+    background-color: #eee;
+    border-radius: 10px;
+}
+
+.rating p {
+    margin: 10px 0;
+
+    text-align: center;
+}
+
+.greyStar {
+    height: 30px;
+    width: 30px;
+
+    color: #0002;
+}
+
+.goldStar {
+    height: 30px;
+    width: 30px;
+
+    color: #ffd700;
+    border-radius: 50%;
+}
+
+.chat {
+    grid-area: chat;
+
+    height: 100%;
+
+    padding: 20px;
+
+    background-color: #eee;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.chat::-webkit-scrollbar {
+    width: 5px;
+}
+
+.chat::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.chat::-webkit-scrollbar-thumb {
+    background-color: #0006;
+    border-radius: 20px;
+}
+
+.lastMessage {
+    width: 50%;
+
+    margin: 0 auto;
+    padding: 10px;
+
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    text-align: center;
+    user-select: none;
+}

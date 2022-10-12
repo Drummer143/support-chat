@@ -1,0 +1,12 @@
+body {
+    background-color: #d5d6d2 !important;
+}
+
+p {
+    font-size: 1.15rem;
+}
+
+input {
+    border: none;
+    outline: none;
+}

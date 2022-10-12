@@ -1,0 +1,65 @@
+@media screen and (hover: hover) {
+    .googleAuth:hover {
+        background-color: #f2f2f2;
+    }
+
+    .forgotPassword:hover {
+        text-decoration: underline;
+    }
+
+    .footerLink:hover {
+        text-decoration: none;
+    }
+}
+
+.forgotPassword {
+    margin-right: 10px;
+
+    float: right;
+    text-align: right;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: #fff !important;
+}
+
+.forgotPassword:active {
+    outline: solid 1px #fff;
+    text-decoration: none;
+}
+
+.buttons {
+    button {
+        width: 60%;
+        height: 40px;
+
+        border-radius: 10px;
+    }
+
+    div {
+        margin: 10px 0;
+    }
+}
+
+.googleAuth {
+    background-color: #fff;
+
+    path {
+        color: #f30;
+    }
+}
+
+.googleAuth:active {
+    background-color: #e6e6e6;
+}
+
+.footer {
+    margin-top: 20px;
+}
+
+.footerLink {
+    color: #fff !important;
+}
+
+.footerLink:active {
+    outline: solid 1px #fff;
+}

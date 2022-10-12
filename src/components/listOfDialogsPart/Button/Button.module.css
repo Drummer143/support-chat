@@ -1,0 +1,55 @@
+.button {
+    border: none;
+    color: #fff;
+}
+
+.save {
+    border-radius: 0 0 10px 10px;
+    background-color: #525252;
+}
+
+.save:hover {
+    background-color: #505050;
+}
+
+.save:active {
+    background-color: #484848;
+}
+
+.delete {
+    border-radius: 0 0 10px 10px;
+    background-color: #424242;
+}
+
+.delete:hover {
+    background-color: #404040;
+}
+
+.delete:active {
+    background-color: #383838;
+}
+
+.complete {
+    border-radius: 10px 10px 0 0;
+    background-color: #00910f;
+}
+
+.complete:hover {
+    background-color: #008d0f;
+}
+
+.complete:active {
+    background-color: #00890f;
+}
+
+.accept {
+    border-radius: 10px 10px 0 0;
+    background-color: #8f9100;
+}
+.accept:hover {
+    background-color: #8f8100;
+}
+
+.accept:active {
+    background-color: #8f7100;
+}

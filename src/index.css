@@ -1,12 +1,27 @@
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 :root {
-  --blue: rgb(0, 49, 122);
-  --gray: #f2f2f2;
-  --dark-gray: #ededed;
-  --error: #f00;
+    --grey: #f2f2f2;
+    --dark-grey: #ededed;
+    --blue: #00317a;
+    --green: #009100;
+}
+
+p {
+    margin: 0;
+}
+
+textarea,
+button,
+input {
+    border: none;
+    outline: none;
+}
+
+button:not(:disabled) {
+    cursor: pointer;
 }
