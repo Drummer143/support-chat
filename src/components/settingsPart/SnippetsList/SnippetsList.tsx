@@ -1,96 +1,129 @@
+import { ref, update } from '@firebase/database';
 import { useState, useRef } from 'react';
 
 import Snippet from '../Snippet/Snippet';
+import { database } from '../../../firebase';
+import { AppState } from '../../../types/types';
+import { useSelector } from 'react-redux';
+
+import { buildPathToSnippets } from '../../../utils';
 
 import styles from './SnippetsList.module.css';
 
-let arr = [
-    'Snippet 1',
-    'Sentence',
-    'word',
-    'Snippet Snippet Snippet Snippet',
-    'Snippet Snippet Snippet Snippet Snippet',
-    'Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet Snippet'
-];
-
 function SnippetsList() {
-    const [snippets, setSnippets] = useState(arr);
-    const [inputDisplaying, setInputDisplaying] = useState('none');
-    const [newSnippetText, setNewSnippetText] = useState('');
-    const newSnippetInputRef = useRef<HTMLTextAreaElement>(null);
+    const [isNewSnippetInputDisplaying, setIsNewSnippetInputDisplaying] = useState(false);
+    const [newSnippetInput, setNewSnippetInput] = useState('');
+    const [currentEditingSnippet, setCurrentEditingSnippet] = useState('');
+    const newSnippetInputRef = useRef<HTMLInputElement /* HTMLTextAreaElement */>(null);
+    const snippets = useSelector((state: AppState) => state.chatReducer.snippets);
+    const user = useSelector((state: AppState) => state.authReducer.user);
+
+    const dbRef = ref(database);
 
     const handleDelete = (text: string) => {
-        setSnippets(prev => prev.filter(item => item !== text));
+        setIsNewSnippetInputDisplaying(false);
+        setCurrentEditingSnippet('');
+        const newSnippets = snippets.filter(snippet => snippet !== text);
+        update(dbRef, { [buildPathToSnippets(user.uid)]: newSnippets });
     };
 
-    const handleCreateNewSnippet = () => {
-        if (inputDisplaying === 'none') {
-            setInputDisplaying('initial');
-            setTimeout(() => newSnippetInputRef.current?.focus());
-        } else {
-            if (newSnippetText && !snippets.includes(newSnippetText)) {
-                let s = snippets.slice();
-                s.push(newSnippetText);
-                setSnippets(s);
-            }
-            setNewSnippetText('');
-            setInputDisplaying('none');
+    const handleEdit = (e: React.FormEvent<HTMLFormElement>, oldText: string, newText: string) => {
+        e.preventDefault();
+
+        if (oldText !== newText) {
+            const index = snippets.findIndex(snippet => snippet === oldText);
+            const newSnippets = snippets.slice();
+
+            newSnippets[index] = newText;
+            update(dbRef, { [buildPathToSnippets(user.uid)]: newSnippets });
         }
+
+        setCurrentEditingSnippet('');
     };
 
-    const handleSave = (oldText: string, newText: string, setDisabled: Function) => {
-        if (newText) {
-            let s = snippets.slice();
-            s[s.indexOf(oldText)] = newText;
-            setSnippets(s);
-            setDisabled((prev: boolean) => !prev);
-        } else {
-            handleDelete(oldText);
-        }
+    const handleCancel = () => {
+        setIsNewSnippetInputDisplaying(false);
+        setNewSnippetInput('');
+    };
+
+    const handleCreateNewSnippet = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const newSnippets = snippets.concat(newSnippetInput);
+        update(dbRef, { [buildPathToSnippets(user.uid)]: newSnippets });
+
+        handleCancel();
     };
 
     return (
-        <div className={styles.wrapper}>
+        <div
+            className={styles.wrapper}
+            onKeyDown={e => {
+                if (e.key === 'Escape') {
+                    handleCancel();
+                    setCurrentEditingSnippet('');
+                }
+            }}
+        >
             <h2>Snippets</h2>
             <div>
-                <div className={styles.list}>
-                    {snippets &&
-                        snippets.map((snippet, i) => (
+                {snippets?.length ? (
+                    <div className={styles.list}>
+                        {snippets.map((snippet, i) => (
                             <Snippet
                                 key={snippet + i}
                                 text={snippet}
+                                currentEditingSnippet={currentEditingSnippet}
+                                handleEditButtonClick={(text: string) => {
+                                    setCurrentEditingSnippet(text);
+                                    setIsNewSnippetInputDisplaying(false);
+                                }}
                                 handleDelete={handleDelete}
-                                handleSave={handleSave}
+                                handleSave={handleEdit}
                             />
                         ))}
-                </div>
+                    </div>
+                ) : null}
 
-                <div className={styles.addNewSnippet}>
-                    <textarea
-                        style={{ display: inputDisplaying, resize: 'none' }}
-                        ref={newSnippetInputRef}
-                        value={newSnippetText}
-                        onChange={e => setNewSnippetText(e.target.value)}
-                        className={styles.textarea}
-                    />
-                    <div>
+                {isNewSnippetInputDisplaying ? (
+                    <form className={styles.addNewSnippet} onSubmit={handleCreateNewSnippet}>
+                        <input
+                            autoFocus
+                            ref={newSnippetInputRef}
+                            value={newSnippetInput}
+                            onChange={e => setNewSnippetInput(e.target.value)}
+                            className={styles.input}
+                        />
+                        <div>
+                            <button
+                                type="submit"
+                                className={`${styles.button} ${styles.greenButton}`}
+                            >
+                                Submit
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleCancel}
+                                className={`${styles.button} ${styles.redButton}`}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                ) : (
+                    <>
                         <button
                             type="button"
-                            onClick={handleCreateNewSnippet}
+                            onClick={() => {
+                                setIsNewSnippetInputDisplaying(true);
+                                setCurrentEditingSnippet('');
+                            }}
                             className={`${styles.button} ${styles.greenButton}`}
                         >
-                            {inputDisplaying === 'none' ? 'Add' : 'Save'} snippet
+                            Add snippet
                         </button>
-                        <button
-                            type="button"
-                            style={{ display: inputDisplaying }}
-                            onClick={() => setInputDisplaying('none')}
-                            className={`${styles.button} ${styles.redButton}`}
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
+                    </>
+                )}
             </div>
         </div>
     );

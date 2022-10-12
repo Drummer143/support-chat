@@ -17,7 +17,7 @@ import { AppState } from '../../types/types';
 function RoutingTree() {
     const user = useSelector((state: AppState) => state.authReducer.user);
 
-    return user ? (
+    return Object.keys(user).length !== 0 ? (
         <Routes>
             <Route path="/main/" element={<Layout />}>
                 <Route path="dialogs" element={<ListOfDialogs />} />

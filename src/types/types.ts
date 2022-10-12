@@ -5,7 +5,7 @@ import { DataDialog } from './firebaseDataTypes';
 
 export type AuthState = {
     requesting: boolean;
-    user: User | null;
+    user: User;
     error: null | FirebaseError;
     isRecovered?: boolean;
 };
@@ -13,6 +13,7 @@ export type AuthState = {
 export type ChatState = {
     status: string;
     dialogs: DataDialog[];
+    snippets: string[];
 };
 
 export type Action = {
@@ -20,6 +21,7 @@ export type Action = {
     error?: FirebaseError;
     status?: string;
     dialogs?: DataDialog[];
+    snippets?: string[];
     email?: string;
     password?: string;
     oobCode?: string | null;

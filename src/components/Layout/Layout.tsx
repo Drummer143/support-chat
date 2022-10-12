@@ -1,19 +1,25 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { DataSnapshot } from '@firebase/database';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import Navbar from '../SideBar/SideBar';
-import useUpdateDialogs from './useLoadDialogs';
+import useLoadData from '../../hooks/useLoadData';
 import { auth } from '../../firebase';
+import { getDialogsSuccess } from '../../redux/actions/actions';
 
 import styles from './Layout.module.css';
 
 function Layout() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     /* const [token, setToken] = useState(); */
     const { pathname } = useLocation();
 
-    useUpdateDialogs();
+    useLoadData('dialogs/', (snapshot: DataSnapshot) =>
+        dispatch(getDialogsSuccess(snapshot.val()))
+    );
 
     useEffect(() => {
         return auth.onAuthStateChanged(user => {

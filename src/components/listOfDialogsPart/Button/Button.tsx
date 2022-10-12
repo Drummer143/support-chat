@@ -2,7 +2,8 @@ import { ref } from 'firebase/database';
 import { update } from 'firebase/database';
 
 import { database } from '../../../firebase';
-import { DialogStatus, DynamicObject } from '../../../types/types';
+import { DialogStatus } from '../../../types/types';
+import { buildPathToMessages } from '../../../utils';
 
 import styles from './Button.module.css';
 
@@ -18,9 +19,7 @@ const Button = ({ text, dialogId, newStatus, path, buttonColor }: Props) => {
     const headDB = ref(database);
 
     const setNewStatus = (dialogId: number, newStatus: DialogStatus | boolean, path: string) => {
-        let updates: DynamicObject = {};
-        updates[`/dialogs/${dialogId}/${path}/`] = newStatus;
-        update(headDB, updates);
+        update(headDB, { [buildPathToMessages(dialogId, path)]: newStatus });
         /* TODO: update operatorId */
     };
 

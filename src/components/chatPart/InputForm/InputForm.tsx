@@ -1,11 +1,12 @@
 import { v4 } from 'uuid';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ref as dRef, update } from 'firebase/database';
 import { ref as sRef, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 
 import InputFileButton from './../../InputFileButton/InputFileButton';
-import { DialogStatus, DynamicObject } from '../../../types/types';
+import { DialogStatus } from '../../../types/types';
 import { database, storage } from '../../../firebase';
+import { buildPathToMessages } from '../../../utils';
 
 import styles from './InputForm.module.css';
 
@@ -19,60 +20,77 @@ type Props = {
 
 function InputForm({ input, setInput, id, dialogId, status }: Props) {
     const [localInput, setLocalInput] = useState(input);
-    const [imageInput, setImageInput] = useState<File | null>();
+    const [imageInput, setImageInput] = useState<File | null>(null);
+    const [isRightShiftHolding, setIsRightShiftHolding] = useState(false);
+
+    const isDisabled = status === 'completed' ? true : false;
+    const dbRef = dRef(database);
 
     useEffect(() => setLocalInput(input), [input]);
-
-    const dbRef = dRef(database);
 
     const uploadImage = () => {
         if (!imageInput) return;
         const imageRef = sRef(storage, `d${dialogId}/m${id}/${imageInput.name}_${v4()}`);
         uploadBytes(imageRef, imageInput).then(() => {
             const imageRef = sRef(storage, `d${dialogId}/m${id}`);
+
             listAll(imageRef).then(res => {
                 getDownloadURL(res.items[0]).then(url => {
                     const message = {
                         content: localInput,
-                        timestamp: date.getTime(),
+                        timestamp: (new Date()).getTime(),
                         image: url,
                         writtenBy: 'client'
                     };
-                    let updates: DynamicObject = {}; // TODO: ADD TYPES
-                    updates[`/dialogs/${dialogId}/messages/${id}/`] = message;
-                    update(dbRef, updates);
+                    update(dbRef, { [buildPathToMessages(dialogId, 'messages', id)]: message });
                 });
             });
         });
     };
 
-    const date = new Date();
-
     const sendMessage = () => {
         const message = {
             content: localInput,
-            timestamp: date.getTime(),
+            timestamp: (new Date()).getTime(),
             writtenBy: 'client'
         };
-        let updates: DynamicObject = {}; // TODO: ADD TYPE
-        updates[`/dialogs/${dialogId}/messages/${id}`] = message;
-        update(dbRef, updates);
+        update(dbRef, { [buildPathToMessages(dialogId, 'messages', id)]: message });
     };
 
-    const isDisabled = status === 'completed' ? true : false;
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLTextAreaElement>) => {
+        e?.preventDefault();
+        if (imageInput) {
+            uploadImage();
+            setImageInput(null);
+        } else {
+            const text = localInput.trim();
+            if (text) {
+                sendMessage();
+            }
+        }
+        setInput('');
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.code === 'ShiftLeft') {
+            setIsRightShiftHolding(true);
+        }
+
+        if (e.key === 'Enter' && !isRightShiftHolding) {
+            e.preventDefault();
+            handleSubmit(e);
+        }
+    };
+
+    const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.code === 'ShiftLeft') {
+            setIsRightShiftHolding(false);
+        }
+    };
 
     return (
         <form
-            onSubmit={e => {
-                e.preventDefault();
-                if (imageInput) {
-                    uploadImage();
-                    setImageInput(null);
-                } else if (localInput) {
-                    sendMessage();
-                }
-                setInput('');
-            }}
+            onSubmit={handleSubmit}
             onReset={() => setInput('')}
             className={styles.wrapper}
             style={{ cursor: isDisabled ? 'not-allowed' : 'auto' }}
@@ -81,6 +99,8 @@ function InputForm({ input, setInput, id, dialogId, status }: Props) {
                 <textarea
                     name="input"
                     onChange={e => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    onKeyUp={handleKeyUp}
                     value={localInput}
                     className={styles.textarea}
                     maxLength={1000}
