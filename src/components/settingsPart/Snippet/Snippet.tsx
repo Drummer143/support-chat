@@ -45,7 +45,7 @@ const Snippet = ({
     };
 
     const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.code === 'Shift') {
+        if (e.code === 'ShiftLeft') {
             setIsRightShiftHolding(false);
         }
     };
