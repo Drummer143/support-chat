@@ -14,7 +14,7 @@ type Props = {
     input: string;
     setInput: (value: string) => void;
     id: string;
-    dialogId: number;
+    dialogId: string;
     status: DialogStatus;
 };
 

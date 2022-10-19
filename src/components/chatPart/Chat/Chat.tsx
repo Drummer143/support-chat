@@ -16,9 +16,9 @@ type URLParams = {
 };
 
 function Chat() {
-    const params = useParams<URLParams>();
+    const { id } = useParams<URLParams>();
     const dialog: DataDialog | undefined = useSelector((state: AppState) =>
-        state.chatReducer.dialogs.find(dialog => dialog.dialogId === Number(params.id))
+        state.chatReducer.dialogs.find(dialog => dialog.dialogId.toString() === id)
     );
     const [rating] = useState(dialog?.status === 'completed' ? dialog?.rating : null);
     const [input, setInput] = useState('');
@@ -60,7 +60,7 @@ function Chat() {
                 input={input}
                 setInput={setInput}
                 id={`${messages?.length}`}
-                dialogId={dialog?.dialogId || 0}
+                dialogId={dialog?.dialogId || '-1'}
                 status={dialog?.status || 'queue'}
             />
 
