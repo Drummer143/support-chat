@@ -1,7 +1,5 @@
 # Documentation
 
-**Project is still under development, but most of the features are already done**
-
 ## Contents
 
 1. [Technology stack](#technology-stack)
