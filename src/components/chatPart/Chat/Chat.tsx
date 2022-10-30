@@ -18,12 +18,12 @@ type URLParams = {
 function Chat() {
     const { id } = useParams<URLParams>();
     const dialog: DataDialog | undefined = useSelector((state: AppState) =>
-        state.chatReducer.dialogs.find(dialog => dialog.dialogId.toString() === id)
+        state.chatReducer.dialogs.find(dialog => dialog.dialogId?.toString() === id)
     );
     const [rating] = useState(dialog?.status === 'completed' ? dialog?.rating : null);
     const [input, setInput] = useState('');
 
-    const addSnippet = (snippet: string) => setInput(input + snippet);
+    const addSnippet = (snippet: string) => setInput((input ? `${input} ` : '') + snippet);
 
     const messages = dialog?.messages.map((message, i) => (
         <Message key={`${i}${message}`} message={message} />
