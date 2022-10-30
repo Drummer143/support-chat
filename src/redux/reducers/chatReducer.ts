@@ -21,7 +21,12 @@ const chatReducer = (state = chatDefaultState, action: Action) => {
         case FETCH_GET_DIALOGS_SUCCESS: {
             let dialogs: DataDialog[] = JSON.parse(JSON.stringify(action.dialogs));
 
+
             if (dialogs) {
+                if (!Array.isArray(dialogs)) {
+                    dialogs = Object.values(dialogs);
+                }
+
                 dialogs.forEach(dialog => {
                     if (!Array.isArray(dialog.messages)) {
                         dialog.messages = Object.values(dialog.messages);

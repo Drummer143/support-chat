@@ -9,7 +9,7 @@ export type DataMessage = {
 };
 
 export type DataDialog = {
-    dialogId: number;
+    dialogId: string;
     messages: DataMessage[];
     operatorId: number;
     saved: boolean;

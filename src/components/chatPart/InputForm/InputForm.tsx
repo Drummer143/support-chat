@@ -14,7 +14,7 @@ type Props = {
     input: string;
     setInput: (value: string) => void;
     id: string;
-    dialogId: number;
+    dialogId: string;
     status: DialogStatus;
 };
 
@@ -40,7 +40,7 @@ function InputForm({ input, setInput, id, dialogId, status }: Props) {
                         content: localInput,
                         timestamp: (new Date()).getTime(),
                         image: url,
-                        writtenBy: 'client'
+                        writtenBy: 'operator'
                     };
                     update(dbRef, { [buildPathToMessages(dialogId, 'messages', id)]: message });
                 });
@@ -52,7 +52,7 @@ function InputForm({ input, setInput, id, dialogId, status }: Props) {
         const message = {
             content: localInput,
             timestamp: (new Date()).getTime(),
-            writtenBy: 'client'
+            writtenBy: 'operator'
         };
         update(dbRef, { [buildPathToMessages(dialogId, 'messages', id)]: message });
     };

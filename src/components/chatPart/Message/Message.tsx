@@ -10,7 +10,7 @@ type Props = {
 
 function Message({ message }: Props) {
     return (
-        <div className={`${styles.message} ${styles[message.writtenBy]}`}>
+        <div className={`${styles.message} ${styles[message.writtenBy.startsWith('o') ? 'operator' : 'client']}`}>
             {message.content ? <p className={styles.text}>{message.content}</p> : null}
             {message.image ? (
                 <img

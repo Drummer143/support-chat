@@ -6,9 +6,9 @@
     display: grid;
 
     grid-template-areas:
-        'back user rating snippets'
-        'chat chat chat snippets'
-        'input input input snippets';
+        'back  user  rating snippets'
+        'chat  chat  chat   snippets'
+        'input input input  snippets';
     grid-template-columns: 50px 5fr 3fr 3fr;
     grid-template-rows: 50px 1fr 150px;
     grid-gap: 10px;

@@ -8,7 +8,7 @@ import { buildPathToMessages } from '../../../utils';
 import styles from './Button.module.css';
 
 type Props = {
-    dialogId: number;
+    dialogId: string;
     path: string;
     newStatus: DialogStatus | boolean;
     text: string;
@@ -18,7 +18,7 @@ type Props = {
 const Button = ({ text, dialogId, newStatus, path, buttonColor }: Props) => {
     const headDB = ref(database);
 
-    const setNewStatus = (dialogId: number, newStatus: DialogStatus | boolean, path: string) => {
+    const setNewStatus = (dialogId: string, newStatus: DialogStatus | boolean, path: string) => {
         update(headDB, { [buildPathToMessages(dialogId, path)]: newStatus });
         /* TODO: update operatorId */
     };
