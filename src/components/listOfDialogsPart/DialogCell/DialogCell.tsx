@@ -1,4 +1,4 @@
-import Moment from 'react-moment';
+import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 
 import useButtons from './useButtons';
@@ -21,9 +21,9 @@ function DialogCell({ dialog }: Props) {
                     <p className={styles.text}>{dialog.userName}</p>
                     <p className={styles.text}>
                         Last message was sent{' '}
-                        <Moment fromNow className={styles.time}>
-                            {lastMessage.timestamp}
-                        </Moment>
+                        <time className={styles.time}>
+                            {moment(lastMessage.timestamp).fromNow()}
+                        </time>
                     </p>
                 </div>
 

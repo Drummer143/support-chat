@@ -1,7 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
+    box-sizing: border-box;
+
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
+
+    border: none;
+    outline: none;
 }
 
 :root {
@@ -9,17 +17,6 @@
     --dark-grey: #ededed;
     --blue: #00317a;
     --green: #009100;
-}
-
-p {
-    margin: 0;
-}
-
-textarea,
-button,
-input {
-    border: none;
-    outline: none;
 }
 
 button:not(:disabled) {
