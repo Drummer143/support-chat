@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useState, useEffect, useRef } from 'react';
 
 import Message from '../Message/Message';
 import InputForm from '../InputForm/InputForm';
@@ -20,8 +20,8 @@ function Chat() {
     const dialog: DataDialog | undefined = useSelector((state: AppState) =>
         state.chatReducer.dialogs.find(dialog => dialog.dialogId?.toString() === id)
     );
-    const [rating] = useState(dialog?.status === 'completed' ? dialog?.rating : null);
     const [input, setInput] = useState('');
+    const chatRef = useRef<HTMLDivElement>(null);
 
     const addSnippet = (snippet: string) => setInput((input ? `${input} ` : '') + snippet);
 
@@ -30,12 +30,10 @@ function Chat() {
     ));
 
     useEffect(() => {
-        const block: HTMLElement | null = document.getElementById('chat');
-
-        if (block?.scrollTop) {
-            block.scrollTop = block?.scrollHeight || block.scrollTop;
+        if (chatRef.current?.scrollHeight) {
+            chatRef.current.scrollTo({ top: chatRef.current.scrollHeight });
         }
-    }, [dialog]);
+    }, [chatRef.current?.scrollHeight]);
 
     return (
         <div className={styles.wrapper}>
@@ -45,9 +43,9 @@ function Chat() {
                 <h3>{dialog?.userName}</h3>
             </div>
 
-            <div className={styles.rating}>{rating}</div>
+            <div className={styles.rating}>{dialog?.rating}</div>
 
-            <div className={styles.chat} id="chat">
+            <div className={styles.chat} id="chat" ref={chatRef}>
                 {messages}
                 {dialog?.status === 'completed' ? (
                     <div className={styles.lastMessage}>

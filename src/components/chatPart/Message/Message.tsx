@@ -1,4 +1,4 @@
-import Moment from 'react-moment';
+import moment from 'moment';
 
 import { DataMessage } from '../../../types/firebaseDataTypes';
 
@@ -21,9 +21,9 @@ function Message({ message }: Props) {
                 />
             ) : null}
             <p>
-                <Moment fromNow className={styles.time}>
-                    {message.timestamp}
-                </Moment>
+                <time className={styles.time}>
+                    {moment(message.timestamp).fromNow()}
+                </time>
             </p>
         </div>
     );
