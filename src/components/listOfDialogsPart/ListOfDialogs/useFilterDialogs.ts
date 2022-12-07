@@ -9,8 +9,8 @@ const useGetData = (searchParams: string) => {
 
     const inputFilter = (dialog: DataDialog) => {
         return (
-            dialog.userName.toLowerCase().includes(searchParams.toLowerCase()) ||
-            dialog.messages.find(message =>
+            dialog.userName?.toLowerCase().includes(searchParams.toLowerCase()) ||
+            dialog.messages?.find(message =>
                 message.content?.toLowerCase().includes(searchParams.toLowerCase())
             )
         );
